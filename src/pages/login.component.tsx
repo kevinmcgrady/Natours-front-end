@@ -31,7 +31,9 @@ const Login: React.FC<{}> = () => {
             />
           </InputContainer>
           <InputContainer>
-            <button className="btn btn--green">Log in</button>
+            <button disabled className="btn btn--green">
+              Log in
+            </button>
           </InputContainer>
         </Form>
       </div>

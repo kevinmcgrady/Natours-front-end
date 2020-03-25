@@ -10,10 +10,26 @@ const Register: React.FC<{}> = () => {
     <Page>
       <div className="login-form">
         <h2 className="heading-secondary ma-bt-lg">Create a new account</h2>
-        <Form name="register" submit={values => console.log(values)}>
+        <Form
+          name="register"
+          submitButtonText="create an account"
+          submit={values => console.log(values)}
+        >
           <InputContainer>
             <Label>Name</Label>
-            <Input name="name" type="text" placeholder="Your name" required />
+            <Input
+              validators={[
+                {
+                  type: "minLength",
+                  length: 8,
+                  errorMessage: "please enter your full name"
+                }
+              ]}
+              name="name"
+              type="text"
+              placeholder="Your name"
+              required
+            />
           </InputContainer>
           <InputContainer>
             <Label>Email</Label>
@@ -62,9 +78,6 @@ const Register: React.FC<{}> = () => {
               placeholder="••••••••"
               required
             />
-          </InputContainer>
-          <InputContainer>
-            <button className="btn btn--green">Create account</button>
           </InputContainer>
         </Form>
       </div>

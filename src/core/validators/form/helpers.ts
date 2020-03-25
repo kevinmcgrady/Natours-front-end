@@ -5,7 +5,8 @@ const toggleErrorMessage = (
   validator: any,
   formValidator: IValidators,
   setMessage: any,
-  values: string[]
+  values: string[],
+  event: any
 ) => {
   if (validator(...values)) {
     setMessage((messages: string[]) => {
@@ -16,6 +17,8 @@ const toggleErrorMessage = (
       }
     });
   } else {
+    event.target.classList.remove("form-error");
+    event.target.classList.add("form-success");
     setMessage((messages: string[]) => {
       return messages.filter(message => message !== formValidator.errorMessage);
     });
@@ -30,15 +33,22 @@ export const validate = (
   validators.forEach(validator => {
     switch (validator.type) {
       case "email":
-        toggleErrorMessage(validateEmail, validator, setMessage, [
-          e.target.value
-        ]);
+        toggleErrorMessage(
+          validateEmail,
+          validator,
+          setMessage,
+          [e.target.value],
+          e
+        );
         break;
       case "minLength":
-        toggleErrorMessage(validateMinLength, validator, setMessage, [
-          e.target.value,
-          validator.length
-        ]);
+        toggleErrorMessage(
+          validateMinLength,
+          validator,
+          setMessage,
+          [e.target.value, validator.length],
+          e
+        );
         break;
     }
   });

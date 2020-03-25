@@ -3,11 +3,11 @@ export const validateEmail = (email: string): boolean => {
     return true;
   }
   return false;
-}
+};
 
 export const validateMinLength = (value: string, length: number): boolean => {
   if (value.length < length) {
     return true;
   }
   return false;
-}
+};

@@ -18,6 +18,7 @@ const Register: React.FC<{}> = () => {
           <InputContainer>
             <Label>Email</Label>
             <Input
+              validators={[{ type: 'email', length: 0, errorMessage: 'please enter a correct email address' }]}
               name="email"
               type="email"
               placeholder="example.com"
@@ -27,6 +28,7 @@ const Register: React.FC<{}> = () => {
           <InputContainer>
             <Label>Password</Label>
             <Input
+              validators={[{ type: 'minLength', length: 8, errorMessage: 'please choose a password 8 chars' }]}
               name="password"
               type="password"
               placeholder="••••••••"
@@ -36,6 +38,7 @@ const Register: React.FC<{}> = () => {
           <InputContainer>
             <Label>Confirm Password</Label>
             <Input
+              validators={[{ type: 'minLength', length: 8, errorMessage: 'please choose a password 8 chars' }]}
               name="confirmPassword"
               type="password"
               placeholder="••••••••"

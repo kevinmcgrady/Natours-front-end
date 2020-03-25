@@ -14,6 +14,7 @@ const Login: React.FC<{}> = () => {
           <InputContainer>
             <Label>Email</Label>
             <Input
+              validators={[{ type: 'email', length: 0, errorMessage: 'please enter a correct email address' }, { type: 'minLength', length: 20, errorMessage: 'must be 8' }]}
               name="email"
               type="email"
               placeholder="example.com"
@@ -30,7 +31,7 @@ const Login: React.FC<{}> = () => {
             />
           </InputContainer>
           <InputContainer>
-            <button className="btn btn--green">Create account</button>
+            <button className="btn btn--green">Log in</button>
           </InputContainer>
         </Form>
       </div>

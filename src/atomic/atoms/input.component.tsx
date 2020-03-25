@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { validate } from '../../core/validators/form/helpers';
+import { IValidators } from '../../core/validators/form/models';
 
 interface IInputProps {
+  validators?: IValidators[];
   name: string;
   type: "text" | "password" | "email";
   placeholder: string;
@@ -8,18 +11,26 @@ interface IInputProps {
 }
 
 export const Input: React.FC<IInputProps> = ({
+  validators = [],
   name,
   type,
   placeholder,
   required
 }) => {
+
+  const [message, setMessage] = useState([]);
+
   return (
-    <input
-      className="form__input"
-      id={name}
-      type={type}
-      placeholder={placeholder}
-      required={required}
-    />
+    <>
+      <input
+        onChange={(e) => validate(e, validators, setMessage)}
+        className={`form__input ${message.length > 0 ? 'form-error' : null}`}
+        id={name}
+        type={type}
+        placeholder={placeholder}
+        required={required}
+      />
+      {message.map((message) => <p className='form__error-message'>{message}</p>)}
+    </>
   );
 };

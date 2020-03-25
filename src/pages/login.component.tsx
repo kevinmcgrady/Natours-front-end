@@ -10,11 +10,21 @@ const Login: React.FC<{}> = () => {
     <Page>
       <div className="login-form">
         <h2 className="heading-secondary ma-bt-lg">Log into your accountt</h2>
-        <Form name="login" submit={values => console.log(values)}>
+        <Form
+          name="login"
+          submitButtonText="log in"
+          submit={values => console.log(values)}
+        >
           <InputContainer>
             <Label>Email</Label>
             <Input
-              validators={[{ type: 'email', length: 0, errorMessage: 'please enter a correct email address' }, { type: 'minLength', length: 20, errorMessage: 'must be 8' }]}
+              validators={[
+                {
+                  type: "email",
+                  length: 0,
+                  errorMessage: "please enter a correct email address"
+                }
+              ]}
               name="email"
               type="email"
               placeholder="example.com"
@@ -29,9 +39,6 @@ const Login: React.FC<{}> = () => {
               placeholder="••••••••"
               required
             />
-          </InputContainer>
-          <InputContainer>
-            <button className="btn btn--green">Log in</button>
           </InputContainer>
         </Form>
       </div>

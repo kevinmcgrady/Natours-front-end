@@ -1,84 +1,51 @@
 import React from "react";
-import { Page } from "../atomic/atoms/page.component";
-import { Form } from "../atomic/organisms/form.component";
-import { Input } from "../atomic/atoms/input.component";
-import { Label } from "../atomic/atoms/label.component";
-import { InputContainer } from "../atomic/molecules/input-container";
+import { Page } from "../atomic/atoms/page/page.component";
+import { Form } from "../atomic/molecules/forms/form/form";
+import { FormField } from "../atomic/molecules/forms/form-field/form-field";
+import { TextInput } from "../atomic/molecules/forms/text-input/text-input";
+import { PasswordInput } from "../atomic/molecules/forms/password-input/password-input";
+import { SubmitButton } from "../atomic/molecules/forms/submit-button/submit-button";
+import { email, minLength } from "../core/validators/form/validators";
 
 const Register: React.FC<{}> = () => {
   return (
     <Page>
       <div className="login-form">
-        <h2 className="heading-secondary ma-bt-lg">Create a new account</h2>
+        <h2 className="heading-secondary ma-bt-lg">Create an account</h2>
         <Form
-          name="register"
-          submitButtonText="create an account"
-          submit={values => console.log(values)}
+          name="login"
+          state={{ name: "", email: "", password: "", passwordConfirm: "" }}
+          onSubmit={(state, loader) => console.log(state, loader)}
         >
-          <InputContainer>
-            <Label>Name</Label>
-            <Input
-              validators={[
-                {
-                  type: "minLength",
-                  length: 8,
-                  errorMessage: "please enter your full name"
-                }
-              ]}
-              name="name"
-              type="text"
-              placeholder="Your name"
-              required
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Email</Label>
-            <Input
-              validators={[
-                {
-                  type: "email",
-                  length: 0,
-                  errorMessage: "please enter a correct email address"
-                }
-              ]}
-              name="email"
-              type="email"
-              placeholder="example.com"
-              required
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Password</Label>
-            <Input
-              validators={[
-                {
-                  type: "minLength",
-                  length: 8,
-                  errorMessage: "please choose a password 8 chars"
-                }
-              ]}
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              required
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Confirm Password</Label>
-            <Input
-              validators={[
-                {
-                  type: "minLength",
-                  length: 8,
-                  errorMessage: "please choose a password 8 chars"
-                }
-              ]}
-              name="confirmPassword"
-              type="password"
-              placeholder="••••••••"
-              required
-            />
-          </InputContainer>
+          <FormField
+            label="Name"
+            name="name"
+            validator={minLength(10, "please enter your full name")}
+          >
+            <TextInput placeholder="John Smith" />
+          </FormField>
+          <FormField
+            label="Email"
+            name="email"
+            validator={email("please enter your email address")}
+          >
+            <TextInput placeholder="example.com" />
+          </FormField>
+          <FormField
+            label="Password"
+            name="password"
+            validator={minLength(8, "your password must be 8 chars or more")}
+          >
+            <PasswordInput placeholder="••••••••" />
+          </FormField>
+          <FormField
+            label="Confirm Password"
+            name="passwordConfirm"
+            validator={minLength(8, "your password must be 8 chars or more")}
+          >
+            <PasswordInput placeholder="••••••••" />
+          </FormField>
+          <SubmitButton>Create Account</SubmitButton>
         </Form>
       </div>
     </Page>

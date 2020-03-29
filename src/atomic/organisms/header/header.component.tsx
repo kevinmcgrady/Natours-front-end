@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "../../assets/images/logo-white.png";
-import urls from "../../urls/urls";
+import logo from "../../../assets/images/logo-white.png";
+import urls from "../../../urls/urls";
 import { Link } from "react-router-dom";
 
 export const Header: React.FC<{}> = () => {

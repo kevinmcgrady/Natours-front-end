@@ -1368,6 +1368,7 @@ button:disabled {
 }
 
 .form__input:focus:invalid,
+.form__group.form-error .form__input,
 .form__input.form-error {
   border-bottom: 3px solid #ff7730;
 }
@@ -1375,8 +1376,8 @@ button:disabled {
 .form__error-message {
   font-size: 12px;
   margin-top: 10px;
-  margin-left: 10px;
   color: #ff7730;
+  font-weight: bold;
 }
 
 .form__input::-webkit-input-placeholder {
@@ -1445,44 +1446,42 @@ button:disabled {
   transform: translateY(-2px);
 }
 
-/* Spinner */
-.lds-ring {
+.spinner {
   display: inline-block;
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
 }
 
-.lds-ring div {
+.spinner div {
   box-sizing: border-box;
   display: block;
   position: absolute;
-  width: 24px;
-  height: 24px;
-  margin: 8px;
-  border: 3px solid #fff;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #fff;
+  margin: 2px;
   border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #fff transparent transparent transparent;
 }
 
-.lds-ring div:nth-child(1) {
+.spinner div:nth-child(1) {
   animation-delay: -0.45s;
 }
 
-.lds-ring div:nth-child(2) {
+.spinner div:nth-child(2) {
   animation-delay: -0.3s;
 }
 
-.lds-ring div:nth-child(3) {
+.spinner div:nth-child(3) {
   animation-delay: -0.15s;
 }
 
-@keyframes lds-ring {
+@keyframes spinner {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }

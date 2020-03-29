@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "../atoms/icon.component";
+import { Icon } from "../../../atoms/icon/icon.component";
 
 interface ICardProps {}
 

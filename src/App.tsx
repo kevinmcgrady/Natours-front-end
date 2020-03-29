@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import urls from "./urls/urls";
-import { Header } from "./atomic/organisms/header.component";
-import { Footer } from "./atomic/organisms/footer.component";
+import { Header } from "./atomic/organisms/header/header.component";
+import { Footer } from "./atomic/organisms/footer/footer.component";
 
 const Homepage = React.lazy(() => import("./pages/homepage.component"));
 const LoginPage = React.lazy(() => import("./pages/login.component"));

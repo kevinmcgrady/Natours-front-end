@@ -1,7 +1,7 @@
 import React from "react";
-import { Card } from "../atomic/molecules/card.component";
-import { Page } from "../atomic/atoms/page.component";
-import { CardContainer } from "../atomic/atoms/card-container.component";
+import { Card } from "../atomic/molecules/cards/card/card.component";
+import { Page } from "../atomic/atoms/page/page.component";
+import { CardContainer } from "../atomic/molecules/cards/card-container/card-container.component";
 
 const Homepage: React.FC<{}> = () => {
   return (

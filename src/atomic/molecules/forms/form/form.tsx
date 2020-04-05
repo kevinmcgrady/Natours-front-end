@@ -42,7 +42,7 @@ export class Form<T extends object> extends Component<
   state: IFormState = {
     form: {},
     isLoading: false,
-    isValid: false
+    isValid: false,
   };
 
   // Form loader.
@@ -64,7 +64,7 @@ export class Form<T extends object> extends Component<
     const form: FormState = mapValues(state, (initValue: any) => ({
       value: initValue,
       touched: false,
-      error: ""
+      error: "",
     }));
 
     this.setState({ form });
@@ -74,12 +74,12 @@ export class Form<T extends object> extends Component<
   private buildSchema() {
     const { children } = this.props;
 
-    this.formFieldComponents = children.map(child => child);
+    this.formFieldComponents = children.map((child) => child);
 
     const validators = fromPairs(
       this.formFieldComponents
-        .filter(field => field.props.validator)
-        .map(field => [field.props.name, field.props.validator])
+        .filter((field) => field.props.validator)
+        .map((field) => [field.props.name, field.props.validator])
     ) as any;
 
     this.schema = object(validators);
@@ -97,7 +97,7 @@ export class Form<T extends object> extends Component<
   // Method to get form field values.
   private getFormFieldValue(field: string) {
     // @ts-ignore
-    const value = get(this.state, state => state.form[field].value);
+    const value = get(this.state, (state) => state.form[field].value);
     return value;
   }
 
@@ -111,9 +111,9 @@ export class Form<T extends object> extends Component<
         ...this.state.form,
         [field]: {
           ...this.state.form[field],
-          value
-        }
-      }
+          value,
+        },
+      },
     });
   }
 
@@ -137,10 +137,10 @@ export class Form<T extends object> extends Component<
   private setFormFieldErrors(errors: FieldErrors) {
     const form = { ...this.state.form };
 
-    Object.keys(form).forEach(key => {
+    Object.keys(form).forEach((key) => {
       form[key] = {
         ...this.state.form[key],
-        error: errors[key] || ""
+        error: errors[key] || "",
       };
     });
 
@@ -191,7 +191,7 @@ export class Form<T extends object> extends Component<
 
       const state = {
         ...this.getFormValues(),
-        [field]: value
+        [field]: value,
       };
 
       window.clearTimeout(this.deferredValidation);
@@ -232,11 +232,10 @@ export class Form<T extends object> extends Component<
           ...this.state.form,
           [field]: {
             ...this.state.form[field],
-            touched: true
-          }
-        }
+            touched: true,
+          },
+        },
       });
-      console.log(this.state);
     };
   };
 
@@ -262,7 +261,7 @@ export class Form<T extends object> extends Component<
                 onFocus: this.onFocusHandler(child.props.name),
                 errorMessage: this.getFormFieldError(child.props.name),
                 hasError: this.hasError(child.props.name),
-                disabled: child.props.disabled || this.state.isLoading
+                disabled: child.props.disabled || this.state.isLoading,
               })}
             </>
           );
@@ -275,7 +274,7 @@ export class Form<T extends object> extends Component<
                 key: i,
                 formName: name,
                 loading: this.state.isLoading,
-                isValid: this.state.isValid
+                isValid: this.state.isValid,
               })}
             </>
           );
@@ -297,7 +296,6 @@ export class Form<T extends object> extends Component<
 
   // When component updates.
   componentDidUpdate(prevChildren: IFormProps<T>) {
-    console.log(this.state);
     if (this.props.children !== prevChildren.children) {
       this.buildSchema();
     }

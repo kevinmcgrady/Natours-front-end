@@ -55,7 +55,7 @@ export const Map: React.FC<IMapProps> = ({ locations }) => {
         right: 100,
       },
     });
-  }, []);
+  }, [locations]);
 
   return (
     <section className="section-map">

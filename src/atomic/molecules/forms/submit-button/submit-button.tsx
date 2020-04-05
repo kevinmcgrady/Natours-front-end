@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { Spinner } from "../../../atoms/spinner/spinner.component";
 
 interface ISubmitButtonProps {
   loading?: boolean;
@@ -9,19 +10,12 @@ interface ISubmitButtonProps {
 export const SubmitButton: React.FC<ISubmitButtonProps> = ({
   isValid,
   loading,
-  children
+  children,
 }) => {
   return (
     <button disabled={!isValid} type="submit" className="btn btn--green">
       {!loading && children}
-      {loading && (
-        <div className="spinner">
-          <div />
-          <div />
-          <div />
-          <div />
-        </div>
-      )}
+      {loading && <Spinner />}
     </button>
   );
 };

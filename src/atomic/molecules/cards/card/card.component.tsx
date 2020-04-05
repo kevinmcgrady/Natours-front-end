@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "../../../atoms/icon/icon.component";
+import { Link } from "react-router-dom";
 
 interface ICardProps {}
 
@@ -47,7 +48,9 @@ export const Card: React.FC<ICardProps> = () => {
           <span className="card__footer-value">5 </span>
           <span className="card__footer-text">ratings (6)</span>
         </p>
-        <a className="btn btn--green btn--small">Details</a>
+        <Link className="btn btn--green btn--small" to="/tour/1">
+          Details
+        </Link>
       </div>
     </div>
   );

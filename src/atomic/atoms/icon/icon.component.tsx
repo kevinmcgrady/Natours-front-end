@@ -3,12 +3,18 @@ import icons from "../../../assets/images/icons.svg";
 
 interface IIconProps {
   iconName: string;
+  className?: string;
+  iconClassName?: string;
 }
 
-export const Icon: React.FC<IIconProps> = ({ iconName }) => {
+export const Icon: React.FC<IIconProps> = ({
+  iconName,
+  className,
+  iconClassName,
+}) => {
   return (
-    <svg className="card__icon">
-      <use xlinkHref={`${icons}#${iconName}`}></use>
+    <svg className={`${!className ? "card__icon" : className}`}>
+      <use className={iconClassName} xlinkHref={`${icons}#${iconName}`}></use>
     </svg>
   );
 };

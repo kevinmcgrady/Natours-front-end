@@ -1,7 +1,7 @@
 import { string } from "yup";
 
 export const email = (message: string) => {
-  return string().email(message);
+  return string().email(message).required(message);
 };
 
 export const minLength = (length: number, message: string) => {

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Label } from "../../../atoms/label.component";
+import { Label } from "../form-label/label.component";
 import { MixedSchema } from "yup";
 import { TextInput } from "../text-input/text-input";
 import { PasswordInput } from "../password-input/password-input";
@@ -22,11 +22,11 @@ export const FormField: React.FC<IFormFieldProps> = ({
   onChange,
   onFocus,
   errorMessage,
-  hasError
+  hasError,
 }) => {
   // Method to render children.
   const renderChildren = (children: any) => {
-    return React.Children.map(children, child => {
+    return React.Children.map(children, (child) => {
       if (child.type === TextInput) {
         return React.cloneElement(child, {
           ...child.props,
@@ -39,7 +39,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
             if (onChange) {
               onChange(event.target.value);
             }
-          }
+          },
         });
       }
 
@@ -55,13 +55,13 @@ export const FormField: React.FC<IFormFieldProps> = ({
             if (onChange) {
               onChange(event.target.value);
             }
-          }
+          },
         });
       }
 
       if (child.type === SubmitButton) {
         return React.cloneElement(child, {
-          ...child.props
+          ...child.props,
         });
       }
     });

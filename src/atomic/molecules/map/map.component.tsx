@@ -1,16 +1,9 @@
 import React, { useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import { config } from "../../../config";
+import { ILocation } from "../../../models/tour.model";
 
 mapboxgl.accessToken = config.MAP_API_KEY;
-
-interface ILocation {
-  type: string;
-  coordinates: number[];
-  _id: string;
-  description: string;
-  day: number;
-}
 
 interface IMapProps {
   locations: ILocation[];

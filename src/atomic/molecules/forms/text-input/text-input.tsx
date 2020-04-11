@@ -8,6 +8,7 @@ export interface ITextInputProps {
   required?: boolean;
   onChange?: ChangeEventHandler;
   onFocus?: EventHandler<any>;
+  value?: string;
 }
 
 export const TextInput: React.FC<ITextInputProps> = ({
@@ -17,6 +18,7 @@ export const TextInput: React.FC<ITextInputProps> = ({
   required,
   onChange,
   onFocus,
+  value,
 }) => {
   const handleChange: ChangeEventHandler = (e) => {
     if (onChange) {
@@ -41,6 +43,7 @@ export const TextInput: React.FC<ITextInputProps> = ({
         placeholder={placeholder}
         required={required}
         className={`form__input`}
+        value={value}
       />
     </>
   );

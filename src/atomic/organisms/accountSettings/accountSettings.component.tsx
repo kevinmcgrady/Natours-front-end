@@ -1,20 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { email, required } from '../../../core/validators/form/validators';
+import { IUser } from '../../../models/user.model';
+import { IAppState } from '../../../redux/reducers/main.reducer';
+import { selectLoggedInUser } from '../../../redux/selectors/auth.selectors';
 import { FormField } from '../../molecules/forms/form-field/form-field';
 import { Form } from '../../molecules/forms/form/form';
 import { PasswordInput } from '../../molecules/forms/password-input/password-input';
 import { SubmitButton } from '../../molecules/forms/submit-button/submit-button';
 import { TextInput } from '../../molecules/forms/text-input/text-input';
 
-const AccountSettings: React.FC<{}> = () => {
+interface IAccountSettingsProps {
+  user: IUser;
+}
+
+const AccountSettings: React.FC<IAccountSettingsProps> = ({ user }) => {
   return (
     <>
       <div className='user-view__form-container'>
         <h2 className='heading-secondary ma-bt-md'>Your account settings</h2>
         <Form
           name='accountSettings'
-          state={{ name: '', email: '' }}
+          state={{ name: user.name, email: user.email }}
           onSubmit={(state, loader) => console.log(state)}
         >
           <FormField
@@ -70,4 +79,8 @@ const AccountSettings: React.FC<{}> = () => {
   );
 };
 
-export default AccountSettings;
+const mapStateToProps = createStructuredSelector<IAppState, {}>({
+  user: selectLoggedInUser,
+});
+
+export default connect(mapStateToProps)(AccountSettings);

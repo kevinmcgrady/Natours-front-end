@@ -1,9 +1,15 @@
 import React, { Suspense } from 'react';
+import { connect } from 'react-redux';
 import { NavLink, Route, Switch } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 
 import { Icon } from '../atomic/atoms/icon/icon.component';
 import { Page } from '../atomic/atoms/page/page.component';
 import { Spinner } from '../atomic/atoms/spinner/spinner.component';
+import RestrictedRoute from '../atomic/molecules/restrictedRoute/restrictedRoute.component';
+import { IUser } from '../models/user.model';
+import { IAppState } from '../redux/reducers/main.reducer';
+import { selectLoggedInUser } from '../redux/selectors/auth.selectors';
 import urls from '../urls/urls';
 
 const AccountSettings = React.lazy(() =>
@@ -31,7 +37,11 @@ const AdminBookings = React.lazy(() =>
   import('../atomic/organisms/adminBookings/adminBookings.component'),
 );
 
-const DashboardPage: React.FC<{}> = () => {
+interface IDashboardProps {
+  user: IUser;
+}
+
+const DashboardPage: React.FC<IDashboardProps> = ({ user }) => {
   return (
     <Page>
       <div className='user-view'>
@@ -74,47 +84,49 @@ const DashboardPage: React.FC<{}> = () => {
               </NavLink>
             </li>
           </ul>
-          <div className='admin-nav'>
-            <h5 className='admin-nav__heading'>Admin</h5>
-            <ul className='side-nav'>
-              <li>
-                <NavLink
-                  activeClassName='side-nav--active'
-                  to={urls.admin.tours}
-                >
-                  <Icon iconName='icon-map' />
-                  Manage tours
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  activeClassName='side-nav--active'
-                  to={urls.admin.users}
-                >
-                  <Icon iconName='icon-users' />
-                  Manage users
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  activeClassName='side-nav--active'
-                  to={urls.admin.reviews}
-                >
-                  <Icon iconName='icon-star' />
-                  Manage reviews
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  activeClassName='side-nav--active'
-                  to={urls.admin.bookings}
-                >
-                  <Icon iconName='icon-briefcase' />
-                  Manage Bookings
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+          {user.role === 'admin' && (
+            <div className='admin-nav'>
+              <h5 className='admin-nav__heading'>Admin</h5>
+              <ul className='side-nav'>
+                <li>
+                  <NavLink
+                    activeClassName='side-nav--active'
+                    to={urls.admin.tours}
+                  >
+                    <Icon iconName='icon-map' />
+                    Manage tours
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    activeClassName='side-nav--active'
+                    to={urls.admin.users}
+                  >
+                    <Icon iconName='icon-users' />
+                    Manage users
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    activeClassName='side-nav--active'
+                    to={urls.admin.reviews}
+                  >
+                    <Icon iconName='icon-star' />
+                    Manage reviews
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    activeClassName='side-nav--active'
+                    to={urls.admin.bookings}
+                  >
+                    <Icon iconName='icon-briefcase' />
+                    Manage Bookings
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+          )}
         </nav>
         <div className='user-view__content'>
           <Suspense fallback={<Spinner large />}>
@@ -139,11 +151,23 @@ const DashboardPage: React.FC<{}> = () => {
                 path={urls.account.billing}
                 component={AccountBilling}
               />
-              <Route exact path={urls.admin.tours} component={AdminTours} />
-              <Route exact path={urls.admin.users} component={AdminUsers} />
-              <Route exact path={urls.admin.reviews} component={AdminReviews} />
-              <Route
-                exact
+              <RestrictedRoute
+                restrictTo='admin'
+                path={urls.admin.tours}
+                component={AdminTours}
+              />
+              <RestrictedRoute
+                restrictTo='admin'
+                path={urls.admin.users}
+                component={AdminUsers}
+              />
+              <RestrictedRoute
+                restrictTo='admin'
+                path={urls.admin.reviews}
+                component={AdminReviews}
+              />
+              <RestrictedRoute
+                restrictTo='admin'
                 path={urls.admin.bookings}
                 component={AdminBookings}
               />
@@ -155,4 +179,8 @@ const DashboardPage: React.FC<{}> = () => {
   );
 };
 
-export default DashboardPage;
+const mapStateToProps = createStructuredSelector<IAppState, {}>({
+  user: selectLoggedInUser,
+});
+
+export default connect(mapStateToProps)(DashboardPage);

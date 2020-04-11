@@ -15,13 +15,13 @@ import urls from '../../../urls/urls';
 interface IRouteProps {
   path: string;
   component: any;
-  restrictTo?: string;
+  restrictTo: string;
   user?: IUser;
   isLoggedIn?: boolean;
   token?: string;
 }
 
-const AuthenticatedRoute: React.FC<IRouteProps> = ({
+const RestrictedRoute: React.FC<IRouteProps> = ({
   path,
   component,
   isLoggedIn,
@@ -30,9 +30,7 @@ const AuthenticatedRoute: React.FC<IRouteProps> = ({
   user,
 }) => {
   if (isLoggedIn && token && restrictTo === user?.role) {
-    return <Route path={path} component={component} />;
-  } else if (isLoggedIn && token) {
-    return <Route path={path} component={component} />;
+    return <Route exact path={path} component={component} />;
   } else {
     return <Redirect to={urls.auth.login} />;
   }
@@ -44,4 +42,4 @@ const mapStateToProps = createStructuredSelector<IAppState, {}>({
   user: selectLoggedInUser,
 });
 
-export default connect(mapStateToProps)(AuthenticatedRoute);
+export default connect(mapStateToProps)(RestrictedRoute);

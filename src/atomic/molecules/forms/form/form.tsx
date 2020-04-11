@@ -89,7 +89,7 @@ export class Form<T extends object> extends Component<
   // Method to set up state.
   private setupState() {
     const { state } = this.props;
-
+    console.log(state);
     const form: FormState = mapValues(state, (initValue: any) => ({
       value: initValue,
       touched: false,
@@ -125,8 +125,7 @@ export class Form<T extends object> extends Component<
 
   // Method to get form field values.
   private getFormFieldValue(field: string) {
-    // @ts-ignore
-    const value = get(this.state, (state) => state.form[field].value);
+    const value = this.state.form[field].value;
     return value;
   }
 

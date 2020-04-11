@@ -13,6 +13,7 @@ export interface IFormFieldProps {
   errorMessage?: string;
   children: ReactNode;
   hasError?: boolean;
+  value?: string;
   onChange?: (value: string) => void;
   onFocus?: () => void;
 }
@@ -24,6 +25,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
   onFocus,
   errorMessage,
   hasError,
+  value,
 }) => {
   // Method to render children.
   const renderChildren = (formChildren: any) => {
@@ -31,6 +33,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
       if (child.type === TextInput) {
         return React.cloneElement(child, {
           ...child.props,
+          value,
           onFocus: () => {
             if (onFocus) {
               onFocus();
@@ -47,6 +50,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
       if (child.type === PasswordInput) {
         return React.cloneElement(child, {
           ...child.props,
+          value,
           onFocus: () => {
             if (onFocus) {
               onFocus();

@@ -33,6 +33,7 @@ export const AuthReducer = (
         isLoading: false,
         token: action.payload.token,
         isLoggedIn: true,
+        errorMessage: null,
       };
     case AuthActionTypes.StoreLogedInUser:
       return {
@@ -47,12 +48,28 @@ export const AuthReducer = (
         isLoggedIn: false,
         errorMessage: action.payload.errorMessage,
       };
+    case AuthActionTypes.StartCreateNewUser:
+      return {
+        ...state,
+        isLoading: true,
+        token: null,
+        isLoggedIn: false,
+        user: null,
+        errorMessage: null,
+      };
+    case AuthActionTypes.CreateNewUserFail:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload.message,
+      };
     case AuthActionTypes.Logout:
       return {
         ...state,
         isLoggedIn: false,
         user: null,
         token: null,
+        errorMessage: null,
       };
     default:
       return state;

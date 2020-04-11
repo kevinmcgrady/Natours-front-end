@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, EventHandler } from "react";
+import React, { ChangeEventHandler, EventHandler } from 'react';
 
 export interface ITextInputProps {
   id?: string;
@@ -16,15 +16,15 @@ export const TextInput: React.FC<ITextInputProps> = ({
   placeholder,
   required,
   onChange,
-  onFocus
+  onFocus,
 }) => {
-  const handleChange: ChangeEventHandler = e => {
+  const handleChange: ChangeEventHandler = (e) => {
     if (onChange) {
       onChange(e);
     }
   };
 
-  const handleFocus: EventHandler<any> = e => {
+  const handleFocus: EventHandler<any> = (e) => {
     if (onFocus) {
       onFocus(e);
     }
@@ -33,6 +33,7 @@ export const TextInput: React.FC<ITextInputProps> = ({
   return (
     <>
       <input
+        aria-required={true}
         onChange={handleChange}
         onFocus={handleFocus}
         id={id}

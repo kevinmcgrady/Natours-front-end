@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, EventHandler } from "react";
+import React, { ChangeEventHandler, EventHandler } from 'react';
 
 export interface IPasswordInputProps {
   id?: string;
@@ -17,15 +17,15 @@ export const PasswordInput: React.FC<IPasswordInputProps> = ({
   hasError,
   required,
   onChange,
-  onFocus
+  onFocus,
 }) => {
-  const handleChange: ChangeEventHandler = e => {
+  const handleChange: ChangeEventHandler = (e) => {
     if (onChange) {
       onChange(e);
     }
   };
 
-  const handleFocus: EventHandler<any> = e => {
+  const handleFocus: EventHandler<any> = (e) => {
     if (onFocus) {
       onFocus(e);
     }
@@ -33,6 +33,7 @@ export const PasswordInput: React.FC<IPasswordInputProps> = ({
 
   return (
     <input
+      aria-required={true}
       id={id}
       disabled={disabled}
       placeholder={placeholder}
@@ -40,7 +41,7 @@ export const PasswordInput: React.FC<IPasswordInputProps> = ({
       className={`form__input`}
       onChange={handleChange}
       onFocus={handleFocus}
-      type="password"
+      type='password'
     />
   );
 };

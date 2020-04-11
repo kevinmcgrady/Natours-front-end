@@ -1,18 +1,55 @@
-import React from "react";
-import { Card } from "../atomic/molecules/cards/card/card.component";
-import { Page } from "../atomic/atoms/page/page.component";
-import { CardContainer } from "../atomic/molecules/cards/card-container/card-container.component";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-const Homepage: React.FC<{}> = () => {
+import { Page } from '../atomic/atoms/page/page.component';
+import { CardContainer } from '../atomic/molecules/cards/card-container/card-container.component';
+import { Card } from '../atomic/molecules/cards/card/card.component';
+import LoadingPage from '../pages/loading.component';
+import { FetchTours } from '../redux/actions/tours.actions';
+import { IAppState } from '../redux/reducers/main.reducer';
+import {
+  selectIsLoading,
+  selectTours,
+} from '../redux/selectors/tours.selectors';
+
+interface IHomepageProps {
+  fetchTours: () => null;
+  isLoading: boolean;
+  tours: [];
+}
+
+const Homepage: React.FC<IHomepageProps> = ({
+  fetchTours,
+  isLoading,
+  tours = [],
+}) => {
+  useEffect(() => {
+    fetchTours();
+  }, [fetchTours]);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <Page>
       <CardContainer>
-        {[1, 2, 3, 4, 5, 6].map(() => (
-          <Card />
+        {tours.map((tour, index) => (
+          <Card key={index} tour={tour} />
         ))}
       </CardContainer>
     </Page>
   );
 };
 
-export default Homepage;
+const mapDispatchToProps = (dispatch: any) => ({
+  fetchTours: () => dispatch(FetchTours()),
+});
+
+const mapStateToProps = createStructuredSelector<IAppState, {}>({
+  isLoading: selectIsLoading,
+  tours: selectTours,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

@@ -1,5 +1,6 @@
-import React from "react";
-import icons from "../../../assets/images/icons.svg";
+import React from 'react';
+
+import icons from '../../../assets/images/icons.svg';
 
 interface IIconProps {
   iconName: string;
@@ -13,8 +14,8 @@ export const Icon: React.FC<IIconProps> = ({
   iconClassName,
 }) => {
   return (
-    <svg className={`${!className ? "card__icon" : className}`}>
-      <use className={iconClassName} xlinkHref={`${icons}#${iconName}`}></use>
+    <svg className={`${!className ? 'card__icon' : className}`}>
+      <use className={iconClassName} xlinkHref={`${icons}#${iconName}`}/>
     </svg>
   );
 };

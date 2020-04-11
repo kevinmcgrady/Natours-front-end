@@ -1,9 +1,10 @@
-import React, { ReactNode } from "react";
-import { Label } from "../form-label/label.component";
-import { MixedSchema } from "yup";
-import { TextInput } from "../text-input/text-input";
-import { PasswordInput } from "../password-input/password-input";
-import { SubmitButton } from "../submit-button/submit-button";
+import React, { ReactNode } from 'react';
+import { MixedSchema } from 'yup';
+
+import { Label } from '../form-label/label.component';
+import { PasswordInput } from '../password-input/password-input';
+import { SubmitButton } from '../submit-button/submit-button';
+import { TextInput } from '../text-input/text-input';
 
 export interface IFormFieldProps {
   name: string;
@@ -25,8 +26,8 @@ export const FormField: React.FC<IFormFieldProps> = ({
   hasError,
 }) => {
   // Method to render children.
-  const renderChildren = (children: any) => {
-    return React.Children.map(children, (child) => {
+  const renderChildren = (formChildren: any) => {
+    return React.Children.map(formChildren, (child) => {
       if (child.type === TextInput) {
         return React.cloneElement(child, {
           ...child.props,
@@ -68,10 +69,10 @@ export const FormField: React.FC<IFormFieldProps> = ({
   };
 
   return (
-    <div className={`form__group ${hasError ? "form-error" : ""}`}>
+    <div className={`form__group ${hasError ? 'form-error' : ''}`}>
       <Label>{label}</Label>
       {renderChildren(children)}
-      {errorMessage && <p className="form__error-message">{errorMessage}</p>}
+      {errorMessage && <p className='form__error-message'>{errorMessage}</p>}
     </div>
   );
 };

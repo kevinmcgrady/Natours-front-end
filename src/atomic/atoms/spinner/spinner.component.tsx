@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ISpinnerProps {
   large?: boolean;
@@ -6,8 +6,8 @@ interface ISpinnerProps {
 
 export const Spinner: React.FC<ISpinnerProps> = ({ large }) => {
   return (
-    <div className="spinnerContainer">
-      <div className={`${large ? "largeSpinner" : "spinner"}`}>
+    <div className='spinnerContainer'>
+      <div className={`${large ? 'largeSpinner' : 'spinner'}`}>
         <div />
         <div />
         <div />

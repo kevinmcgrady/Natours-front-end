@@ -1,4 +1,4 @@
-import { string } from "yup";
+import { string } from 'yup';
 
 export const email = (message: string) => {
   return string().email(message).required(message);

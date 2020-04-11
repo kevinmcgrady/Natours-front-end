@@ -30,7 +30,7 @@ html {
 body {
   line-height: 1.6;
   font-weight: 300;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   color: #777;
   min-height: 100vh;
   display: -webkit-box;
@@ -598,7 +598,7 @@ body {
 }
 
 .marker {
-  background-image: url("./assets/images/pin.png");
+  background-image: url('./assets/images/pin.png');
   background-size: cover;
   width: 32px;
   height: 40px;
@@ -611,7 +611,7 @@ body {
 
 .mapboxgl-popup-content {
   text-align: center;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   padding: 1.5rem !important;
   font-size: 1.4rem;
   -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15) !important;
@@ -677,7 +677,7 @@ body {
 
 .reviews:before,
 .reviews:after {
-  content: "";
+  content: '';
   width: 2rem;
 }
 
@@ -1570,12 +1570,23 @@ button:disabled {
 }
 
 /* Infobox */
-.info-card {
+.info-card,
+.errorCard {
   background-color: #ffffff;
-  border-radius: 15px;
-  max-width: 650px;
+  border-radius: 5px;
+  max-width: 55em;
   padding: 3rem;
   margin: 0 auto;
+  box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+}
+
+.errorCard {
+  margin-bottom: 1em;
+}
+
+.errorCard p {
+  text-align: center;
+  font-size: 14px;
 }
 
 .info-card .error-image {

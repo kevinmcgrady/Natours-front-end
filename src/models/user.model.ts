@@ -7,3 +7,10 @@ export interface IUser {
   passwordChngedAt?: string;
   id: string;
 }
+
+export interface IUserForSubmission {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}

@@ -7,6 +7,7 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
 
 import urls from '../../urls/urls';
 import {
+  CreateUserFail,
   StoreError,
   StoreLoggedInUser,
   StoreToken,
@@ -29,10 +30,35 @@ const fetchTokenEpic: Epic<any, any, any, any> = (action$) =>
             of(push(urls.account.settings)),
           );
         }),
-        catchError(() => of(StoreError('Incorrect email or password'))),
+        catchError((error) => of(StoreError(error.response.data.message))),
         tap(() => action.payload.loader.stop()),
       );
     }),
   );
 
-export default combineEpics(fetchTokenEpic);
+const startCreateNewUser: Epic<any, any, any, any> = (action$) =>
+  action$.ofType(AuthActionTypes.StartCreateNewUser).pipe(
+    switchMap((action) => {
+      console.log(action.payload);
+      return from(
+        axios.post(`https://natours-kev.herokuapp.com/api/v1/users/signup`, {
+          name: action.payload.user.name,
+          email: action.payload.user.email,
+          password: action.payload.user.password,
+          passwordConfirm: action.payload.user.passwordConfirm,
+        }),
+      ).pipe(
+        switchMap((res) => {
+          return concat(
+            of(StoreToken(res.data.token)),
+            of(StoreLoggedInUser(res.data.data.user)),
+            of(push(urls.account.settings)),
+          );
+        }),
+        catchError((error) => of(CreateUserFail(error.response.data.message))),
+        tap(() => action.payload.loader.stop()),
+      );
+    }),
+  );
+
+export default combineEpics(fetchTokenEpic, startCreateNewUser);

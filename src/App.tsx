@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import AuthenticatedRoute from './atomic/molecules/authenticatedRoute/authenticatedRoute.component';
 import { Footer } from './atomic/organisms/footer/footer.component';
 import Header from './atomic/organisms/header/header.component';
 import LoadingPage from './pages/loading.component';
@@ -22,7 +23,10 @@ function App() {
         <Route exact path={urls.auth.login} component={LoginPage} />
         <Route exact path={urls.auth.register} component={RegisterPage} />
         <Route exact path={urls.tours.single} component={SinglePage} />
-        <Route path={urls.account.root} component={DashBoardPage} />
+        <AuthenticatedRoute
+          path={urls.account.root}
+          component={DashBoardPage}
+        />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />

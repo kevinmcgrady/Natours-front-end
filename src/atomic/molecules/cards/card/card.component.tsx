@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon } from "../../../atoms/icon/icon.component";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../../../core/formatters/date/formatters";
 import ITour from "../../../../models/tour.model";
 
 interface ICardProps {
@@ -33,7 +34,7 @@ export const Card: React.FC<ICardProps> = ({ tour }) => {
         </div>
         <div className="card__data">
           <Icon iconName="icon-map-pin" />
-          <span>{tour.startDates[0]}</span>
+          <span>{formatDate(tour.startDates[0])}</span>
         </div>
         <div className="card__data">
           <Icon iconName="icon-map-pin" />

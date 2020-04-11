@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { Footer } from './atomic/organisms/footer/footer.component';
-import { Header } from './atomic/organisms/header/header.component';
+import Header from './atomic/organisms/header/header.component';
 import LoadingPage from './pages/loading.component';
 import urls from './urls/urls';
 

@@ -1,3 +1,4 @@
+import { IUser } from '../../models/user.model';
 import { AuthActionTypes } from '../types/auth.types';
 
 export const FetchToken = (email: string, password: string, loader: any) => ({
@@ -13,4 +14,13 @@ export const StoreToken = (token: string) => ({
 export const StoreError = (errorMessage: string) => ({
   type: AuthActionTypes.StoreError,
   payload: { errorMessage },
+});
+
+export const StoreLoggedInUser = (user: IUser) => ({
+  type: AuthActionTypes.StoreLogedInUser,
+  payload: { user },
+});
+
+export const Logout = () => ({
+  type: AuthActionTypes.Logout,
 });

@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
-import LoadingPage from "../pages/loading.component";
-import { createStructuredSelector } from "reselect";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+import { Page } from '../atomic/atoms/page/page.component';
+import { CardContainer } from '../atomic/molecules/cards/card-container/card-container.component';
+import { Card } from '../atomic/molecules/cards/card/card.component';
+import LoadingPage from '../pages/loading.component';
+import { FetchTours } from '../redux/actions/tours.actions';
+import { IAppState } from '../redux/reducers/main.reducer';
 import {
   selectIsLoading,
   selectTours,
-} from "../redux/selectors/tours.selectors";
-import { connect } from "react-redux";
-import { Card } from "../atomic/molecules/cards/card/card.component";
-import { Page } from "../atomic/atoms/page/page.component";
-import { FetchTours } from "../redux/actions/tours.actions";
-import { CardContainer } from "../atomic/molecules/cards/card-container/card-container.component";
-import { IAppState } from "../redux/reducers/main.reducer";
+} from '../redux/selectors/tours.selectors';
 
 interface IHomepageProps {
   fetchTours: () => null;
@@ -34,8 +35,8 @@ const Homepage: React.FC<IHomepageProps> = ({
   return (
     <Page>
       <CardContainer>
-        {tours.map((tour) => (
-          <Card tour={tour} />
+        {tours.map((tour, index) => (
+          <Card key={index} tour={tour} />
         ))}
       </CardContainer>
     </Page>

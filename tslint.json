@@ -1,0 +1,40 @@
+{
+  "extends": ["tslint:latest", "tslint-react", "tslint-react-a11y"],
+  "rules": {
+    "jsx-wrap-multiline": false,
+    "no-console": false,
+    "jsx-no-multiline-js": false,
+    "jsx-boolean-value": false,
+    "jsx-no-lambda": false,
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never"
+      }
+    ],
+    "object-literal-sort-keys": false,
+    "ordered-imports": [
+      true,
+      {
+        "grouped-imports": true
+      }
+    ],
+    "interface-name": false,
+    "interface-over-type-literal": false,
+    "interface-conditional-expression": false,
+    "quotemark": [true, "single", "jsx-double"],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-module",
+      "check-seperator",
+      "check-rest-spread",
+      "check-typecast",
+      "check-type-operator",
+      "check-preblock"
+    ]
+  }
+}

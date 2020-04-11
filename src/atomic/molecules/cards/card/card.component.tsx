@@ -1,8 +1,9 @@
-import React from "react";
-import { Icon } from "../../../atoms/icon/icon.component";
-import { Link } from "react-router-dom";
-import { formatDate } from "../../../../core/formatters/date/formatters";
-import ITour from "../../../../models/tour.model";
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { formatDate } from '../../../../core/formatters/date/formatters';
+import ITour from '../../../../models/tour.model';
+import { Icon } from '../../../atoms/icon/icon.component';
 
 interface ICardProps {
   tour: ITour;
@@ -15,6 +16,7 @@ export const Card: React.FC<ICardProps> = ({ tour }) => {
         <div className="card__picture">
           <div className="card__picture-overlay">&nbsp;</div>
           <img
+            alt={tour.name}
             className="card__picture-img"
             src={`https://natours-kev.herokuapp.com/img/tours/${tour.imageCover}`}
           />

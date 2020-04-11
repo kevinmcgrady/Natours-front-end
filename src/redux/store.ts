@@ -1,15 +1,16 @@
-import { createStore, applyMiddleware } from "redux";
-import { MainReducer } from "./reducers/main.reducer";
-import { createEpicMiddleware } from "redux-observable";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { applyMiddleware, createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { createEpicMiddleware } from 'redux-observable';
 
-import { rootEpic } from "../redux/effects/rootEffect";
+import { rootEpic } from '../redux/effects/rootEffect';
+
+import { MainReducer } from './reducers/main.reducer';
 
 const epicMiddleware = createEpicMiddleware();
 
 const store = createStore(
   MainReducer,
-  composeWithDevTools(applyMiddleware(epicMiddleware))
+  composeWithDevTools(applyMiddleware(epicMiddleware)),
 );
 
 // @ts-ignore

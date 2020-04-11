@@ -1,4 +1,4 @@
-import { ToursActionTypes } from "../types/tours.types";
+import { ToursActionTypes } from '../types/tours.types';
 
 export const FetchTours = () => ({
   type: ToursActionTypes.FetchTours,

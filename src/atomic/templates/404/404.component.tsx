@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Page } from "../../atoms/page/page.component";
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { Page } from '../../atoms/page/page.component';
 
 interface I404Props {
   title: string;

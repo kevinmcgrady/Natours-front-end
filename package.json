@@ -17,6 +17,7 @@
     "@types/yup": "^0.26.33",
     "axios": "^0.19.2",
     "dayjs": "^1.8.24",
+    "husky": "^4.2.5",
     "lodash": "^4.17.15",
     "mapbox-gl": "^1.9.1",
     "react": "^16.13.1",
@@ -28,14 +29,23 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-observable": "^1.2.0",
     "reselect": "^4.0.0",
+    "rxjs": "^6.5.5",
     "typescript": "^3.7.5",
     "yup": "^0.28.3"
   },
   "scripts": {
     "start": "react-scripts start",
+    "lint": "tslint -c tslint.json 'src/**/*.ts{x,}'",
+    "pre-commit": "npm run lint",
+    "lint-fix": "tslint 'src/**/*.ts{x,}' --fix",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pre-commit"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,5 +61,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tslint": "^5.16.0",
+    "tslint-loader": "^3.5.4",
+    "tslint-react": "^4.2.0",
+    "tslint-react-a11y": "^1.1.0"
   }
 }

@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
-import mapboxgl from "mapbox-gl";
-import { config } from "../../../config";
-import { ILocation } from "../../../models/tour.model";
+import mapboxgl from 'mapbox-gl';
+import React, { useEffect } from 'react';
+
+import { config } from '../../../config';
+import { ILocation } from '../../../models/tour.model';
 
 mapboxgl.accessToken = config.MAP_API_KEY;
 
@@ -11,21 +12,21 @@ interface IMapProps {
 
 export const Map: React.FC<IMapProps> = ({ locations }) => {
   useEffect(() => {
-    var map = new mapboxgl.Map({
-      container: "map",
-      style: "mapbox://styles/kevinmcgrady47/ck7ruld102nme1ip1obx3rrbu",
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/kevinmcgrady47/ck7ruld102nme1ip1obx3rrbu',
       scrollZoom: false,
     });
 
     const bounds = new mapboxgl.LngLatBounds();
 
     locations.forEach((loc) => {
-      const el = document.createElement("div");
-      el.className = "marker";
+      const el = document.createElement('div');
+      el.className = 'marker';
 
       new mapboxgl.Marker({
         element: el,
-        anchor: "bottom",
+        anchor: 'bottom',
       })
         .setLngLat(loc.coordinates as any)
         .addTo(map);
@@ -52,7 +53,7 @@ export const Map: React.FC<IMapProps> = ({ locations }) => {
 
   return (
     <section className="section-map">
-      <div id="map"></div>
+      <div id="map"/>
     </section>
   );
 };

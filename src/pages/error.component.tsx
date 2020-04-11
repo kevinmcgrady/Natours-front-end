@@ -1,6 +1,7 @@
-import React from "react";
-import urls from "../urls/urls";
-import { ErrorTemplate } from "../atomic/templates/404/404.component";
+import React from 'react';
+
+import { ErrorTemplate } from '../atomic/templates/404/404.component';
+import urls from '../urls/urls';
 
 const ErrorPage = () => {
   return (

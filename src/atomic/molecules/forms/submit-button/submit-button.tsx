@@ -1,5 +1,6 @@
-import React, { ReactNode } from "react";
-import { Spinner } from "../../../atoms/spinner/spinner.component";
+import React, { ReactNode } from 'react';
+
+import { Spinner } from '../../../atoms/spinner/spinner.component';
 
 interface ISubmitButtonProps {
   loading?: boolean;

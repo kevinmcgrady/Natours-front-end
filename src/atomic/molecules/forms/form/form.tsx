@@ -1,9 +1,10 @@
-import React, { ReactNode, Component, ReactElement, FormEvent } from "react";
-import { FormLoader } from "../../../../core/validators/form/form-loader";
-import { MixedSchema, object, ValidationError } from "yup";
-import { IFormFieldProps, FormField } from "../form-field/form-field";
-import { mapValues, fromPairs, get } from "lodash";
-import { SubmitButton } from "../submit-button/submit-button";
+import { fromPairs, get, mapValues } from 'lodash';
+import React, { Component, FormEvent, ReactElement, ReactNode } from 'react';
+import { MixedSchema, object, ValidationError } from 'yup';
+
+import { FormLoader } from '../../../../core/validators/form/form-loader';
+import { FormField, IFormFieldProps } from '../form-field/form-field';
+import { SubmitButton } from '../submit-button/submit-button';
 
 // Form props.
 export interface IFormProps<T> {
@@ -39,7 +40,7 @@ export class Form<T extends object> extends Component<
   IFormState
 > {
   // Initial state.
-  state: IFormState = {
+  public state: IFormState = {
     form: {},
     isLoading: false,
     isValid: false,
@@ -57,6 +58,34 @@ export class Form<T extends object> extends Component<
   // Validation number.
   private deferredValidation!: number;
 
+  // Before component mounts.
+  public componentWillMount() {
+    this.buildSchema();
+
+    this.loader = new FormLoader((isLoading: boolean) => {
+      this.setState({ isLoading });
+    });
+
+    this.setupState();
+  }
+
+  // When component updates.
+  public componentDidUpdate(prevChildren: IFormProps<T>) {
+    if (this.props.children !== prevChildren.children) {
+      this.buildSchema();
+    }
+  }
+
+  // Method to render form component.
+  public render() {
+    const { name, children } = this.props;
+    return (
+      <form onSubmit={this.onSubmitHandler} name={name}>
+        {this.cloneChildren(children)}
+      </form>
+    );
+  }
+
   // Method to set up state.
   private setupState() {
     const { state } = this.props;
@@ -64,7 +93,7 @@ export class Form<T extends object> extends Component<
     const form: FormState = mapValues(state, (initValue: any) => ({
       value: initValue,
       touched: false,
-      error: "",
+      error: '',
     }));
 
     this.setState({ form });
@@ -79,7 +108,7 @@ export class Form<T extends object> extends Component<
     const validators = fromPairs(
       this.formFieldComponents
         .filter((field) => field.props.validator)
-        .map((field) => [field.props.name, field.props.validator])
+        .map((field) => [field.props.name, field.props.validator]),
     ) as any;
 
     this.schema = object(validators);
@@ -89,7 +118,7 @@ export class Form<T extends object> extends Component<
   private getFormValues() {
     const values = mapValues(
       this.state.form,
-      (field: FormFieldState) => field.value
+      (field: FormFieldState) => field.value,
     );
     return values;
   }
@@ -140,7 +169,7 @@ export class Form<T extends object> extends Component<
     Object.keys(form).forEach((key) => {
       form[key] = {
         ...this.state.form[key],
-        error: errors[key] || "",
+        error: errors[key] || '',
       };
     });
 
@@ -156,7 +185,7 @@ export class Form<T extends object> extends Component<
   private async validateForm(
     state: any,
     isSubmit: boolean = false,
-    fieldName?: string
+    fieldName?: string,
   ) {
     try {
       await this.schema.validate(state, { abortEarly: false });
@@ -198,11 +227,11 @@ export class Form<T extends object> extends Component<
       if (shouldValidate) {
         this.deferredValidation = window.setTimeout(
           () => this.validateForm(state, false, field),
-          0
+          0,
         );
       }
     };
-  };
+  }
 
   // On Submit Handler.
   private onSubmitHandler = async (event: FormEvent) => {
@@ -222,7 +251,7 @@ export class Form<T extends object> extends Component<
       this.loader.stop();
       this.props.onSubmit(state as T, this.loader);
     }
-  };
+  }
 
   // Method to handle on focus.
   private onFocusHandler = (field: string) => {
@@ -237,7 +266,7 @@ export class Form<T extends object> extends Component<
         },
       });
     };
-  };
+  }
 
   // Method to clone children and pass new props.
   private cloneChildren = (allChildren: any): ReactNode => {
@@ -279,35 +308,7 @@ export class Form<T extends object> extends Component<
             </>
           );
         }
-      }
-    );
-  };
-
-  // Before component mounts.
-  componentWillMount() {
-    this.buildSchema();
-
-    this.loader = new FormLoader((isLoading: boolean) => {
-      this.setState({ isLoading });
-    });
-
-    this.setupState();
-  }
-
-  // When component updates.
-  componentDidUpdate(prevChildren: IFormProps<T>) {
-    if (this.props.children !== prevChildren.children) {
-      this.buildSchema();
-    }
-  }
-
-  // Method to render form component.
-  render() {
-    const { name, children } = this.props;
-    return (
-      <form onSubmit={this.onSubmitHandler} name={name}>
-        {this.cloneChildren(children)}
-      </form>
+      },
     );
   }
 }

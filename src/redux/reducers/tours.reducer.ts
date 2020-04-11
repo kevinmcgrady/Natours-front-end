@@ -1,5 +1,5 @@
-import { ToursActionTypes } from "../types/tours.types";
-import ITour from "../../models/tour.model";
+import ITour from '../../models/tour.model';
+import { ToursActionTypes } from '../types/tours.types';
 
 export interface IToursState {
   tours: ITour[];
@@ -15,7 +15,7 @@ const initialState: IToursState = {
 
 export const ToursReducer = (
   state: IToursState = initialState,
-  action: { type: string; payload?: any }
+  action: { type: string; payload?: any },
 ) => {
   switch (action.type) {
     case ToursActionTypes.FetchTours:

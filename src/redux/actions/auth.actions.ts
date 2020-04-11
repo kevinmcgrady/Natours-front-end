@@ -1,4 +1,4 @@
-import { IUser } from '../../models/user.model';
+import { IUser, IUserForSubmission } from '../../models/user.model';
 import { AuthActionTypes } from '../types/auth.types';
 
 export const FetchToken = (email: string, password: string, loader: any) => ({
@@ -19,6 +19,16 @@ export const StoreError = (errorMessage: string) => ({
 export const StoreLoggedInUser = (user: IUser) => ({
   type: AuthActionTypes.StoreLogedInUser,
   payload: { user },
+});
+
+export const StartCreateNewUser = (user: IUserForSubmission, loader: any) => ({
+  type: AuthActionTypes.StartCreateNewUser,
+  payload: { user, loader },
+});
+
+export const CreateUserFail = (message: string) => ({
+  type: AuthActionTypes.CreateNewUserFail,
+  payload: { message },
 });
 
 export const Logout = () => ({

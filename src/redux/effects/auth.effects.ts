@@ -1,12 +1,16 @@
 import axios from 'axios';
 import { push } from 'connected-react-router';
-import { combineEpics, Epic, ofType } from 'redux-observable';
+import { combineEpics, Epic } from 'redux-observable';
 import { concat, from, of } from 'rxjs';
 // tslint:disable-next-line
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
 import urls from '../../urls/urls';
-import { StoreError, StoreToken } from '../actions/auth.actions';
+import {
+  StoreError,
+  StoreLoggedInUser,
+  StoreToken,
+} from '../actions/auth.actions';
 import { AuthActionTypes } from '../types/auth.types';
 
 const fetchTokenEpic: Epic<any, any, any, any> = (action$) =>
@@ -21,7 +25,8 @@ const fetchTokenEpic: Epic<any, any, any, any> = (action$) =>
         switchMap((res) => {
           return concat(
             of(StoreToken(res.data.token)),
-            of(push(urls.account.root)),
+            of(StoreLoggedInUser(res.data.data.user)),
+            of(push(urls.account.settings)),
           );
         }),
         catchError(() => of(StoreError('Incorrect email or password'))),

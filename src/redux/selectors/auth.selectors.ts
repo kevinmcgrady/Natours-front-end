@@ -8,3 +8,18 @@ export const selectAuthErrorMessage = createSelector(
   [authState],
   (auth) => auth.errorMessage,
 );
+
+export const selectAuthIsLoggedIn = createSelector(
+  [authState],
+  (auth) => auth.isLoggedIn,
+);
+
+export const selectAuthToken = createSelector(
+  [authState],
+  (auth) => auth.token,
+);
+
+export const selectLoggedInUser = createSelector(
+  [authState],
+  (auth) => auth.user,
+);

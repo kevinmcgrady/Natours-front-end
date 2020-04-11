@@ -8,10 +8,12 @@ import {
 import { FetchSingleTour } from "../redux/actions/tours.actions";
 import { Icon } from "../atomic/atoms/icon/icon.component";
 import LoadingPage from "./loading.component";
+import { ErrorTemplate } from "../atomic/templates/404/404.component";
 import WhiteLogo from "../assets/images/logo-white.png";
 import { Map } from "../atomic/molecules/map/map.component";
 import { IAppState } from "../redux/reducers/main.reducer";
 import ITour from "../models/tour.model";
+import urls from "../urls/urls";
 
 interface ISingleTourProps {
   fetchTour: (tourId: string) => void;
@@ -36,7 +38,14 @@ const SingleTour: React.FC<ISingleTourProps> = ({
   }
 
   if (!isLoading && !tour) {
-    return <p>No tour found</p>;
+    return (
+      <ErrorTemplate
+        title="Tour not found"
+        errorMessage="This tour was not found!"
+        linkText="Back to tours"
+        linkURL={urls.homepage}
+      />
+    );
   }
 
   return (

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { formatDateWithDay } from "../core/formatters/date/formatters";
 import {
   selectIsLoading,
   selectTour,
@@ -86,7 +87,9 @@ const SingleTour: React.FC<ISingleTourProps> = ({
               <div className="overview-box__detail">
                 <Icon className="overview-box__icon" iconName="icon-calendar" />
                 <span className="overview-box__label">Next Date</span>
-                <span className="overview-box__text">{tour.startDates[0]}</span>
+                <span className="overview-box__text">
+                  {formatDateWithDay(tour.startDates[0])}
+                </span>
               </div>
               <div className="overview-box__detail">
                 <Icon

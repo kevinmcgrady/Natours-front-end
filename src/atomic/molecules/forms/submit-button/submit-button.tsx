@@ -14,7 +14,7 @@ export const SubmitButton: React.FC<ISubmitButtonProps> = ({
   children,
 }) => {
   return (
-    <button disabled={!isValid} type="submit" className="btn btn--green">
+    <button disabled={!isValid} type='submit' className='btn btn--green'>
       {!loading && children}
       {loading && <Spinner />}
     </button>

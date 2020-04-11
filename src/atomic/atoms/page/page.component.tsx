@@ -5,5 +5,5 @@ interface IPageProps {
 }
 
 export const Page: React.FC<IPageProps> = ({ children }) => {
-  return <main className="main">{children}</main>;
+  return <main className='main'>{children}</main>;
 };

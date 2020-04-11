@@ -10,58 +10,58 @@ import { TextInput } from '../../molecules/forms/text-input/text-input';
 const AccountSettings: React.FC<{}> = () => {
   return (
     <>
-      <div className="user-view__form-container">
-        <h2 className="heading-secondary ma-bt-md">Your account settings</h2>
+      <div className='user-view__form-container'>
+        <h2 className='heading-secondary ma-bt-md'>Your account settings</h2>
         <Form
-          name="accountSettings"
+          name='accountSettings'
           state={{ name: '', email: '' }}
           onSubmit={(state, loader) => console.log(state)}
         >
           <FormField
-            label="Name"
-            name="name"
+            label='Name'
+            name='name'
             validator={required('Please enter your name')}
           >
-            <TextInput placeholder="John Smith" />
+            <TextInput placeholder='John Smith' />
           </FormField>
           <FormField
-            label="Email address"
-            name="email"
+            label='Email address'
+            name='email'
             validator={email('Please enter your email address')}
           >
-            <TextInput placeholder="example.com" />
+            <TextInput placeholder='example.com' />
           </FormField>
           <SubmitButton>Save settings</SubmitButton>
         </Form>
       </div>
-      <div className="line">&nbsp;</div>
-      <div className="user-view__form-container">
-        <h2 className="heading-secondary ma-bt-md">Password change</h2>
+      <div className='line'>&nbsp;</div>
+      <div className='user-view__form-container'>
+        <h2 className='heading-secondary ma-bt-md'>Password change</h2>
         <Form
-          name="passwordChange"
+          name='passwordChange'
           state={{ currentPassword: '', newPassword: '', passwordConfirm: '' }}
           onSubmit={(state, loader) => console.log(state)}
         >
           <FormField
-            label="Current password"
-            name="currentPassword"
+            label='Current password'
+            name='currentPassword'
             validator={required('Please enter your current password')}
           >
-            <PasswordInput placeholder="••••••••" />
+            <PasswordInput placeholder='••••••••' />
           </FormField>
           <FormField
-            label="New password"
-            name="newPassword"
+            label='New password'
+            name='newPassword'
             validator={required('Please enter your new password')}
           >
-            <PasswordInput placeholder="••••••••" />
+            <PasswordInput placeholder='••••••••' />
           </FormField>
           <FormField
-            label="Confirm password"
-            name="passwordConfirm"
+            label='Confirm password'
+            name='passwordConfirm'
             validator={required('Please confirm your password')}
           >
-            <PasswordInput placeholder="••••••••" />
+            <PasswordInput placeholder='••••••••' />
           </FormField>
           <SubmitButton>Save Password</SubmitButton>
         </Form>

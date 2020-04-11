@@ -6,7 +6,7 @@ interface ISpinnerProps {
 
 export const Spinner: React.FC<ISpinnerProps> = ({ large }) => {
   return (
-    <div className="spinnerContainer">
+    <div className='spinnerContainer'>
       <div className={`${large ? 'largeSpinner' : 'spinner'}`}>
         <div />
         <div />

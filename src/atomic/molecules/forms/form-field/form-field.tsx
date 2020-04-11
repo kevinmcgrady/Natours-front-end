@@ -72,7 +72,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
     <div className={`form__group ${hasError ? 'form-error' : ''}`}>
       <Label>{label}</Label>
       {renderChildren(children)}
-      {errorMessage && <p className="form__error-message">{errorMessage}</p>}
+      {errorMessage && <p className='form__error-message'>{errorMessage}</p>}
     </div>
   );
 };

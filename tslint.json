@@ -23,7 +23,7 @@
     "interface-name": false,
     "interface-over-type-literal": false,
     "interface-conditional-expression": false,
-    "quotemark": [true, "single", "jsx-double"],
+    "quotemark": [true, "single", "jsx-single"],
     "whitespace": [
       true,
       "check-branch",

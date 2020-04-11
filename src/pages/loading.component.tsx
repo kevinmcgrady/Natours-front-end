@@ -6,7 +6,7 @@ import { Spinner } from '../atomic/atoms/spinner/spinner.component';
 const Loading: React.FC<{}> = () => {
   return (
     <Page>
-      <div className="pageContainer">
+      <div className='pageContainer'>
         <Spinner large />
       </div>
     </Page>

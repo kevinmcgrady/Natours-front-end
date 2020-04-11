@@ -1,3 +1,4 @@
+import { IUser } from '../../models/user.model';
 import { AuthActionTypes } from '../types/auth.types';
 
 export interface IAuthState {
@@ -5,6 +6,7 @@ export interface IAuthState {
   isLoggedIn: boolean;
   isLoading: boolean;
   errorMessage: string;
+  user: IUser | null;
 }
 
 const initialState: IAuthState = {
@@ -12,6 +14,7 @@ const initialState: IAuthState = {
   isLoggedIn: false,
   isLoading: false,
   errorMessage: '',
+  user: null,
 };
 
 export const AuthReducer = (
@@ -31,6 +34,11 @@ export const AuthReducer = (
         token: action.payload.token,
         isLoggedIn: true,
       };
+    case AuthActionTypes.StoreLogedInUser:
+      return {
+        ...state,
+        user: action.payload.user,
+      };
     case AuthActionTypes.StoreError:
       return {
         ...state,
@@ -38,6 +46,13 @@ export const AuthReducer = (
         token: null,
         isLoggedIn: false,
         errorMessage: action.payload.errorMessage,
+      };
+    case AuthActionTypes.Logout:
+      return {
+        ...state,
+        isLoggedIn: false,
+        user: null,
+        token: null,
       };
     default:
       return state;

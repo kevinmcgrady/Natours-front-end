@@ -11,40 +11,40 @@ import { email, minLength } from '../core/validators/form/validators';
 const Register: React.FC<{}> = () => {
   return (
     <Page>
-      <div className="login-form">
-        <h2 className="heading-secondary ma-bt-lg">Create an account</h2>
+      <div className='login-form'>
+        <h2 className='heading-secondary ma-bt-lg'>Create an account</h2>
         <Form
-          name="login"
+          name='login'
           state={{ name: '', email: '', password: '', passwordConfirm: '' }}
           onSubmit={(state, loader) => console.log(state, loader)}
         >
           <FormField
-            label="Name"
-            name="name"
+            label='Name'
+            name='name'
             validator={minLength(10, 'please enter your full name')}
           >
-            <TextInput placeholder="John Smith" />
+            <TextInput placeholder='John Smith' />
           </FormField>
           <FormField
-            label="Email"
-            name="email"
+            label='Email'
+            name='email'
             validator={email('please enter your email address')}
           >
-            <TextInput placeholder="example.com" />
+            <TextInput placeholder='example.com' />
           </FormField>
           <FormField
-            label="Password"
-            name="password"
+            label='Password'
+            name='password'
             validator={minLength(8, 'your password must be 8 chars or more')}
           >
-            <PasswordInput placeholder="••••••••" />
+            <PasswordInput placeholder='••••••••' />
           </FormField>
           <FormField
-            label="Confirm Password"
-            name="passwordConfirm"
+            label='Confirm Password'
+            name='passwordConfirm'
             validator={minLength(8, 'your password must be 8 chars or more')}
           >
-            <PasswordInput placeholder="••••••••" />
+            <PasswordInput placeholder='••••••••' />
           </FormField>
           <SubmitButton>Create Account</SubmitButton>
         </Form>

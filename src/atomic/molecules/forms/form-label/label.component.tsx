@@ -5,5 +5,5 @@ interface ILabelProps {
 }
 
 export const Label: React.FC<ILabelProps> = ({ children }) => {
-  return <label className="form__label">{children}</label>;
+  return <label className='form__label'>{children}</label>;
 };

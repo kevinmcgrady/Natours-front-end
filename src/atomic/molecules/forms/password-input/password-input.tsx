@@ -41,7 +41,7 @@ export const PasswordInput: React.FC<IPasswordInputProps> = ({
       className={`form__input`}
       onChange={handleChange}
       onFocus={handleFocus}
-      type="password"
+      type='password'
     />
   );
 };

@@ -52,8 +52,8 @@ export const Map: React.FC<IMapProps> = ({ locations }) => {
   }, [locations]);
 
   return (
-    <section className="section-map">
-      <div id="map"/>
+    <section className='section-map'>
+      <div id='map'/>
     </section>
   );
 };

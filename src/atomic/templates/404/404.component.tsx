@@ -18,16 +18,16 @@ export const ErrorTemplate: React.FC<I404Props> = ({
 }) => {
   return (
     <Page>
-      <div className="info-card">
-        <div className="info-card__content">
+      <div className='info-card'>
+        <div className='info-card__content'>
           <img
-            className="error-image"
-            src="https://i.imgur.com/Q2BAOd2.png"
-            alt="Lost man with map"
+            className='error-image'
+            src='https://i.imgur.com/Q2BAOd2.png'
+            alt='Lost man with map'
           />
           <h1>{title}</h1>
           <h2>{errorMessage}</h2>
-          <Link className="btn btn--green btn--small" to={linkURL}>
+          <Link className='btn btn--green btn--small' to={linkURL}>
             {linkText}
           </Link>
         </div>

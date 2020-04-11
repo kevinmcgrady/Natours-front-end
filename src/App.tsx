@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { Footer } from './atomic/organisms/footer/footer.component';
 import { Header } from './atomic/organisms/header/header.component';
@@ -16,18 +16,16 @@ const ErrorPage = React.lazy(() => import('./pages/error.component'));
 function App() {
   return (
     <Suspense fallback={<LoadingPage />}>
-      <BrowserRouter>
-        <Header />
-        <Switch>
-          <Route exact path={urls.homepage} component={Homepage} />
-          <Route exact path={urls.auth.login} component={LoginPage} />
-          <Route exact path={urls.auth.register} component={RegisterPage} />
-          <Route exact path={urls.tours.single} component={SinglePage} />
-          <Route path={urls.account.root} component={DashBoardPage} />
-          <Route component={ErrorPage} />
-        </Switch>
-        <Footer />
-      </BrowserRouter>
+      <Header />
+      <Switch>
+        <Route exact path={urls.homepage} component={Homepage} />
+        <Route exact path={urls.auth.login} component={LoginPage} />
+        <Route exact path={urls.auth.register} component={RegisterPage} />
+        <Route exact path={urls.tours.single} component={SinglePage} />
+        <Route path={urls.account.root} component={DashBoardPage} />
+        <Route component={ErrorPage} />
+      </Switch>
+      <Footer />
     </Suspense>
   );
 }

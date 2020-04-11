@@ -1,11 +1,11 @@
 export class FormLoader {
   constructor(private onToggleLoader: (loading: boolean) => void) {}
 
-  start() {
+  public start() {
     this.onToggleLoader(true);
   }
 
-  stop() {
+  public stop() {
     this.onToggleLoader(false);
   }
 }

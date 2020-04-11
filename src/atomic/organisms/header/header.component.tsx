@@ -1,7 +1,8 @@
-import React from "react";
-import logo from "../../../assets/images/logo-white.png";
-import urls from "../../../urls/urls";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import logo from '../../../assets/images/logo-white.png';
+import urls from '../../../urls/urls';
 
 export const Header: React.FC<{}> = () => {
   return (

@@ -1,34 +1,34 @@
-import React, { Suspense } from "react";
-import { Page } from "../atomic/atoms/page/page.component";
-import { Icon } from "../atomic/atoms/icon/icon.component";
-import { NavLink, Route, Switch } from "react-router-dom";
-import urls from "../urls/urls";
+import React, { Suspense } from 'react';
+import { NavLink, Route, Switch } from 'react-router-dom';
 
-import { Spinner } from "../atomic/atoms/spinner/spinner.component";
+import { Icon } from '../atomic/atoms/icon/icon.component';
+import { Page } from '../atomic/atoms/page/page.component';
+import { Spinner } from '../atomic/atoms/spinner/spinner.component';
+import urls from '../urls/urls';
 
 const AccountSettings = React.lazy(() =>
-  import("../atomic/organisms/accountSettings/accountSettings.component")
+  import('../atomic/organisms/accountSettings/accountSettings.component'),
 );
 const AccountBookings = React.lazy(() =>
-  import("../atomic/organisms/accountBookings/accountBookings.component")
+  import('../atomic/organisms/accountBookings/accountBookings.component'),
 );
 const AccountReviews = React.lazy(() =>
-  import("../atomic/organisms/accountReviews/accountReviews.component")
+  import('../atomic/organisms/accountReviews/accountReviews.component'),
 );
 const AccountBilling = React.lazy(() =>
-  import("../atomic/organisms/accountBilling/accountBilling.component")
+  import('../atomic/organisms/accountBilling/accountBilling.component'),
 );
 const AdminTours = React.lazy(() =>
-  import("../atomic/organisms/adminTours/adminTours.component")
+  import('../atomic/organisms/adminTours/adminTours.component'),
 );
 const AdminUsers = React.lazy(() =>
-  import("../atomic/organisms/adminUsers/adminUsers.component")
+  import('../atomic/organisms/adminUsers/adminUsers.component'),
 );
 const AdminReviews = React.lazy(() =>
-  import("../atomic/organisms/adminReviews/adminReviews.component")
+  import('../atomic/organisms/adminReviews/adminReviews.component'),
 );
 const AdminBookings = React.lazy(() =>
-  import("../atomic/organisms/adminBookings/adminBookings.component")
+  import('../atomic/organisms/adminBookings/adminBookings.component'),
 );
 
 const DashboardPage: React.FC<{}> = () => {

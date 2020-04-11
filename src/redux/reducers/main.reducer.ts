@@ -1,5 +1,6 @@
-import { ToursReducer, IToursState } from "./tours.reducer";
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
+
+import { IToursState, ToursReducer } from './tours.reducer';
 
 export interface IAppState {
   tours: IToursState;

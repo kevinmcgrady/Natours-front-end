@@ -20,7 +20,7 @@ const urls = {
   tours: {
     single: '/tour/:id',
   },
-  checkout: '/checkout',
+  checkout: '/checkout/:id',
 };
 
 export default urls;

@@ -12,6 +12,7 @@ const LoginPage = React.lazy(() => import('./pages/login.component'));
 const RegisterPage = React.lazy(() => import('./pages/register.component'));
 const SinglePage = React.lazy(() => import('./pages/single-tour.component'));
 const DashBoardPage = React.lazy(() => import('./pages/dashboard.component'));
+const CheckoutPage = React.lazy(() => import('./pages/checkout.component'));
 const ErrorPage = React.lazy(() => import('./pages/error.component'));
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           path={urls.account.root}
           component={DashBoardPage}
         />
+        <Route exact path={urls.checkout} component={CheckoutPage} />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />

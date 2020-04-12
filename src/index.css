@@ -1230,6 +1230,11 @@ body {
   flex-direction: column;
 }
 
+.card-checkout {
+  max-width: 55em;
+  margin: 0 auto;
+}
+
 .card__header {
   position: relative;
 }
@@ -1638,4 +1643,8 @@ button:disabled {
 
 .info-card__content h2 {
   font-size: 2rem;
+}
+
+.stripe-container {
+  padding: 2.5rem 3em;
 }

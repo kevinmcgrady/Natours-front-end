@@ -18,3 +18,13 @@ export const FailStoreUserDetails = (message: string) => ({
   type: UserActionTypes.FailStoreUserDetails,
   payload: { message },
 });
+
+export const StartUpdatePassword = (
+  currentPassword: string,
+  newPassword: string,
+  passwordConfirm: string,
+  loader: any,
+) => ({
+  type: UserActionTypes.StartUpdatePassword,
+  payload: { currentPassword, newPassword, passwordConfirm, loader },
+});

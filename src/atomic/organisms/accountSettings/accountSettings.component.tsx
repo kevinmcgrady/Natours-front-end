@@ -4,7 +4,10 @@ import { createStructuredSelector } from 'reselect';
 
 import { email, required } from '../../../core/validators/form/validators';
 import { IUser } from '../../../models/user.model';
-import { StartStoreUserDetails } from '../../../redux/actions/user.actions';
+import {
+  StartStoreUserDetails,
+  StartUpdatePassword,
+} from '../../../redux/actions/user.actions';
 import { IAppState } from '../../../redux/reducers/main.reducer';
 import { selectLoggedInUser } from '../../../redux/selectors/auth.selectors';
 import { FormField } from '../../molecules/forms/form-field/form-field';
@@ -16,11 +19,18 @@ import { TextInput } from '../../molecules/forms/text-input/text-input';
 interface IAccountSettingsProps {
   user: IUser;
   submitDetails: (email: string, name: string, loader: any) => void;
+  updatePassword: (
+    currentPassword: string,
+    newPassword: string,
+    passwordConfirm: string,
+    loader: any,
+  ) => void;
 }
 
 const AccountSettings: React.FC<IAccountSettingsProps> = ({
   user,
   submitDetails,
+  updatePassword,
 }) => {
   return (
     <>
@@ -56,7 +66,14 @@ const AccountSettings: React.FC<IAccountSettingsProps> = ({
         <Form
           name='passwordChange'
           state={{ currentPassword: '', newPassword: '', passwordConfirm: '' }}
-          onSubmit={(state, loader) => console.log(state)}
+          onSubmit={(state, loader) =>
+            updatePassword(
+              state.currentPassword,
+              state.newPassword,
+              state.passwordConfirm,
+              loader,
+            )
+          }
         >
           <FormField
             label='Current password'
@@ -93,6 +110,20 @@ const mapStateToProps = createStructuredSelector<IAppState, {}>({
 const mapDispatchToProps = (dispatch: any) => ({
   submitDetails: (userEmail: string, name: string, loader: any) =>
     dispatch(StartStoreUserDetails(userEmail, name, loader)),
+  updatePassword: (
+    currentPassword: string,
+    newPassword: string,
+    passwordConfirm: string,
+    loader: any,
+  ) =>
+    dispatch(
+      StartUpdatePassword(
+        currentPassword,
+        newPassword,
+        passwordConfirm,
+        loader,
+      ),
+    ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountSettings);

@@ -24,6 +24,13 @@ export const UsersReducer = (
         errorMessage: null,
         successMessage: null,
       };
+    case UserActionTypes.StartUpdatePassword:
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: null,
+        successMessage: null,
+      };
     case UserActionTypes.SuccessStoreUserDetails:
       return {
         ...state,
@@ -35,8 +42,8 @@ export const UsersReducer = (
       return {
         ...state,
         isLoading: false,
-        errorMessage: null,
-        successMessage: action.payload.message,
+        errorMessage: action.payload.message,
+        successMessage: null,
       };
     default:
       return state;

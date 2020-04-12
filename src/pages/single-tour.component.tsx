@@ -9,7 +9,6 @@ import { Map } from '../atomic/molecules/map/map.component';
 import { ErrorTemplate } from '../atomic/templates/404/404.component';
 import { formatDateWithDay } from '../core/formatters/date/formatters';
 import ITour from '../models/tour.model';
-import { StartPayment } from '../redux/actions/payment.actions';
 import { FetchSingleTour } from '../redux/actions/tours.actions';
 import { IAppState } from '../redux/reducers/main.reducer';
 import {
@@ -26,7 +25,6 @@ import LoadingPage from './loading.component';
 
 interface ISingleTourProps {
   fetchTour: (tourId: string) => void;
-  bookTour: (tourId: string) => void;
   isLoggedIn: boolean;
   token: string;
   isLoading: boolean;
@@ -36,7 +34,6 @@ interface ISingleTourProps {
 
 const SingleTour: React.FC<ISingleTourProps> = ({
   fetchTour,
-  bookTour,
   isLoggedIn,
   token,
   isLoading,
@@ -218,13 +215,12 @@ const SingleTour: React.FC<ISingleTourProps> = ({
               yours today!
             </p>
             {isLoggedIn && token && (
-              <button
+              <Link
                 className='btn btn--green span-all-rows'
-                id='book-tour'
-                onClick={() => bookTour(tour.id)}
+                to={`/checkout/${tour.id}`}
               >
-                Book tour now!
-              </button>
+                Book tour
+              </Link>
             )}
             {!isLoggedIn && !token && (
               <Link
@@ -243,7 +239,6 @@ const SingleTour: React.FC<ISingleTourProps> = ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   fetchTour: (tourId: string) => dispatch(FetchSingleTour(tourId)),
-  bookTour: (tourId: string) => dispatch(StartPayment(tourId)),
 });
 
 const mapStateToProps = createStructuredSelector<IAppState, {}>({

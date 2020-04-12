@@ -21,18 +21,6 @@ export const PaymentReducer = (
         errorMessage: null,
         successMessage: null,
       };
-    case PaymentActionTypes.SuccessPayment:
-      return {
-        ...state,
-        errorMessage: null,
-        successMessage: action.payload.message,
-      };
-    case PaymentActionTypes.FailPayment:
-      return {
-        ...state,
-        successMessage: null,
-        errorMessage: action.payload.message,
-      };
     default:
       return state;
   }

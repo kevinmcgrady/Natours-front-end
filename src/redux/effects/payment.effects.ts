@@ -1,39 +1,72 @@
 import axios from 'axios';
+import { push } from 'connected-react-router';
 import { combineEpics, Epic } from 'redux-observable';
-import { from, of } from 'rxjs';
+import { concat, from, of } from 'rxjs';
 // tslint:disable-next-line
 import { catchError, switchMap } from 'rxjs/operators';
 
-import { config } from '../../config';
-import { FailPayment } from '../actions/payment.actions';
-import { selectAuthToken } from '../selectors/auth.selectors';
+import urls from '../../urls/urls';
+import {
+  FailStoreUserDetails,
+  SuccessStoreUserDetails,
+} from '../actions/user.actions';
+import {
+  selectAuthToken,
+  selectLoggedInUser,
+} from '../selectors/auth.selectors';
 import { PaymentActionTypes } from '../types/payment.types';
-
-// @ts-ignore
-const stripe = window.Stripe(config.STRIPE_KEY);
 
 const startPayment: Epic<any, any, any, any> = (action$, state$) =>
   action$.ofType(PaymentActionTypes.StartPayment).pipe(
     switchMap((action) => {
       const token = selectAuthToken(state$.value);
+      const user = selectLoggedInUser(state$.value);
 
       const headers = {
         headers: { Authorization: `Bearer ${token}` },
       };
       return from(
         axios.get(
-          `http://localhost:8000/api/v1/bookings/checkout-session/${action.payload.tourId}`,
+          `http://localhost:8000/api/v1/bookings/create-payment/${action.payload.tourId}`,
           headers,
         ),
       ).pipe(
         switchMap((res) => {
-          return of(
-            stripe.redirectToCheckout({
-              sessionId: res.data.session.id,
-            }),
+          const paymentIntent = res.data.intent;
+          return from(
+            action.payload.stripe.confirmCardPayment(
+              paymentIntent.client_secret,
+              {
+                payment_method: {
+                  card: action.payload.card,
+                  billing_details: {
+                    name: action.payload.cardHolderName,
+                    email: user?.email,
+                  },
+                },
+              },
+            ),
+          ).pipe(
+            switchMap((data) =>
+              concat(
+                of(SuccessStoreUserDetails('Payment successful!')),
+                of(push(urls.account.bookings)),
+              ),
+            ),
+            catchError((error) =>
+              concat(
+                of(FailStoreUserDetails('Payment failed!')),
+                of(push(urls.account.bookings)),
+              ),
+            ),
           );
         }),
-        catchError((error) => of(FailPayment(error.response.data.message))),
+        catchError((error) =>
+          concat(
+            of(FailStoreUserDetails('There was a problem, please try again')),
+            of(push(urls.account.bookings)),
+          ),
+        ),
       );
     }),
   );

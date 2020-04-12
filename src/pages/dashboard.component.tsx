@@ -6,10 +6,15 @@ import { createStructuredSelector } from 'reselect';
 import { Icon } from '../atomic/atoms/icon/icon.component';
 import { Page } from '../atomic/atoms/page/page.component';
 import { Spinner } from '../atomic/atoms/spinner/spinner.component';
+import { InfoCard } from '../atomic/molecules/cards/info-card/info-card.component';
 import RestrictedRoute from '../atomic/molecules/restrictedRoute/restrictedRoute.component';
 import { IUser } from '../models/user.model';
 import { IAppState } from '../redux/reducers/main.reducer';
 import { selectLoggedInUser } from '../redux/selectors/auth.selectors';
+import {
+  selectErrorMessage,
+  selectSuccessMessage,
+} from '../redux/selectors/users.selectors';
 import urls from '../urls/urls';
 
 const AccountSettings = React.lazy(() =>
@@ -39,11 +44,23 @@ const AdminBookings = React.lazy(() =>
 
 interface IDashboardProps {
   user: IUser;
+  successMessage: string;
+  errorMessage: string;
 }
 
-const DashboardPage: React.FC<IDashboardProps> = ({ user }) => {
+const DashboardPage: React.FC<IDashboardProps> = ({
+  user,
+  successMessage,
+  errorMessage,
+}) => {
   return (
     <Page>
+      {!!errorMessage && (
+        <InfoCard width='fullWidth' type='fail' message={errorMessage} />
+      )}
+      {!!successMessage && (
+        <InfoCard width='fullWidth' type='success' message={successMessage} />
+      )}
       <div className='user-view'>
         <nav className='user-view__menu'>
           <ul className='side-nav'>
@@ -181,6 +198,8 @@ const DashboardPage: React.FC<IDashboardProps> = ({ user }) => {
 
 const mapStateToProps = createStructuredSelector<IAppState, {}>({
   user: selectLoggedInUser,
+  successMessage: selectSuccessMessage,
+  errorMessage: selectErrorMessage,
 });
 
 export default connect(mapStateToProps)(DashboardPage);

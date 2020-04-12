@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 import WhiteLogo from '../assets/images/logo-white.png';
@@ -12,6 +13,10 @@ import { StartPayment } from '../redux/actions/payment.actions';
 import { FetchSingleTour } from '../redux/actions/tours.actions';
 import { IAppState } from '../redux/reducers/main.reducer';
 import {
+  selectAuthIsLoggedIn,
+  selectAuthToken,
+} from '../redux/selectors/auth.selectors';
+import {
   selectIsLoading,
   selectTour,
 } from '../redux/selectors/tours.selectors';
@@ -22,6 +27,8 @@ import LoadingPage from './loading.component';
 interface ISingleTourProps {
   fetchTour: (tourId: string) => void;
   bookTour: (tourId: string) => void;
+  isLoggedIn: boolean;
+  token: string;
   isLoading: boolean;
   tour: ITour;
   match?: any;
@@ -30,6 +37,8 @@ interface ISingleTourProps {
 const SingleTour: React.FC<ISingleTourProps> = ({
   fetchTour,
   bookTour,
+  isLoggedIn,
+  token,
   isLoading,
   tour,
   match,
@@ -208,13 +217,23 @@ const SingleTour: React.FC<ISingleTourProps> = ({
               {tour.duration} days. 1 adventure. Infinite memories. Make it
               yours today!
             </p>
-            <button
-              className='btn btn--green span-all-rows'
-              id='book-tour'
-              onClick={() => bookTour(tour.id)}
-            >
-              Book tour now!
-            </button>
+            {isLoggedIn && token && (
+              <button
+                className='btn btn--green span-all-rows'
+                id='book-tour'
+                onClick={() => bookTour(tour.id)}
+              >
+                Book tour now!
+              </button>
+            )}
+            {!isLoggedIn && !token && (
+              <Link
+                className='btn btn--green span-all-rows'
+                to={urls.auth.login}
+              >
+                Login to book
+              </Link>
+            )}
           </div>
         </div>
       </section>
@@ -230,6 +249,8 @@ const mapDispatchToProps = (dispatch: any) => ({
 const mapStateToProps = createStructuredSelector<IAppState, {}>({
   isLoading: selectIsLoading,
   tour: selectTour,
+  isLoggedIn: selectAuthIsLoggedIn,
+  token: selectAuthToken,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleTour);

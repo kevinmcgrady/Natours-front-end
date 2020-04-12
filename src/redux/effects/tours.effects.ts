@@ -11,7 +11,7 @@ const fetchToursEpic: Epic<any, any, any, any> = (action$) =>
   action$.pipe(
     ofType(ToursActionTypes.FetchTours),
     mergeMap((action) =>
-      from(axios.get('https://natours-kev.herokuapp.com/api/v1/tours')).pipe(
+      from(axios.get('http://localhost:8000/api/v1/tours')).pipe(
         map((res) => StoreTours(res.data.data.data)),
       ),
     ),
@@ -23,7 +23,7 @@ const fetchTourEpic: Epic<any, any, any, any> = (action$) =>
     mergeMap((action) =>
       from(
         axios.get(
-          `https://natours-kev.herokuapp.com/api/v1/tours/${action.payload.tourId}`,
+          `http://localhost:8000/api/v1/tours/${action.payload.tourId}`,
         ),
       ).pipe(
         map((res) => StoreSingleTour(res.data.data.data)),

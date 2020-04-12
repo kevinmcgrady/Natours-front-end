@@ -23,3 +23,8 @@ export const selectLoggedInUser = createSelector(
   [authState],
   (auth) => auth.user,
 );
+
+export const selectUserId = createSelector(
+  [selectLoggedInUser],
+  (user) => user?.id,
+);

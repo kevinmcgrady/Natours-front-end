@@ -1571,7 +1571,8 @@ button:disabled {
 
 /* Infobox */
 .info-card,
-.errorCard {
+.errorCard,
+.successCard {
   background-color: #ffffff;
   border-radius: 5px;
   max-width: 55em;
@@ -1580,13 +1581,33 @@ button:disabled {
   box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
 }
 
-.errorCard {
+.info-card.fullWidth,
+.errorCard.fullWidth,
+.successCard.fullWidth {
+  max-width: 100%;
+}
+
+.errorCard,
+.successCard {
   margin-bottom: 1em;
 }
 
-.errorCard p {
+.errorCard p,
+.successCard {
   text-align: center;
   font-size: 14px;
+}
+
+.successCard {
+  background-color: #55c57a;
+  color: #fff;
+  font-weight: bold;
+}
+
+.errorCard {
+  background-color: #ff7730;
+  color: #fff;
+  font-weight: bold;
 }
 
 .info-card .error-image {

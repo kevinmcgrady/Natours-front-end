@@ -2,7 +2,7 @@ import axios from 'axios';
 import { combineEpics, Epic, ofType } from 'redux-observable';
 import { from, of } from 'rxjs';
 // tslint:disable-next-line
-import { catchError, map, mergeMap } from "rxjs/operators";
+import { catchError, map, mergeMap } from 'rxjs/operators';
 
 import { StoreSingleTour, StoreTours } from '../actions/tours.actions';
 import { ToursActionTypes } from '../types/tours.types';

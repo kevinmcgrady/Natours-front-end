@@ -18,7 +18,7 @@ const fetchTokenEpic: Epic<any, any, any, any> = (action$) =>
   action$.ofType(AuthActionTypes.FetchToken).pipe(
     switchMap((action) => {
       return from(
-        axios.post(`https://natours-kev.herokuapp.com/api/v1/users/login`, {
+        axios.post(`http://localhost:8000/api/v1/users/login`, {
           email: action.payload.email,
           password: action.payload.password,
         }),
@@ -41,7 +41,7 @@ const startCreateNewUser: Epic<any, any, any, any> = (action$) =>
     switchMap((action) => {
       console.log(action.payload);
       return from(
-        axios.post(`https://natours-kev.herokuapp.com/api/v1/users/signup`, {
+        axios.post(`http://localhost:8000/api/v1/users/signup`, {
           name: action.payload.user.name,
           email: action.payload.user.email,
           password: action.payload.user.password,

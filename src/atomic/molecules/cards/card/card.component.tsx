@@ -18,7 +18,7 @@ export const Card: React.FC<ICardProps> = ({ tour }) => {
           <img
             alt={tour.name}
             className='card__picture-img'
-            src={`https://natours-kev.herokuapp.com/img/tours/${tour.imageCover}`}
+            src={`http://localhost:8000/img/tours/${tour.imageCover}`}
           />
         </div>
         <h3 className='heading-tertirary'>

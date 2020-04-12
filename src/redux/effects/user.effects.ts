@@ -22,7 +22,7 @@ const startCreateNewUser: Epic<any, any, any, any> = (action$, state$) =>
       };
       return from(
         axios.patch(
-          `https://natours-kev.herokuapp.com/api/v1/users/update-me`,
+          `http://localhost:8000/api/v1/users/update-me`,
           {
             name: action.payload.name,
             email: action.payload.email,
@@ -54,7 +54,7 @@ const startUpdatePassword: Epic<any, any, any, any> = (action$, state$) =>
       };
       return from(
         axios.patch(
-          `https://natours-kev.herokuapp.com/api/v1/users/update-password`,
+          `http://localhost:8000/api/v1/users/update-password`,
           {
             passwordConfirm: action.payload.passwordConfirm,
             password: action.payload.newPassword,

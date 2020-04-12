@@ -8,6 +8,7 @@ import { Map } from '../atomic/molecules/map/map.component';
 import { ErrorTemplate } from '../atomic/templates/404/404.component';
 import { formatDateWithDay } from '../core/formatters/date/formatters';
 import ITour from '../models/tour.model';
+import { StartPayment } from '../redux/actions/payment.actions';
 import { FetchSingleTour } from '../redux/actions/tours.actions';
 import { IAppState } from '../redux/reducers/main.reducer';
 import {
@@ -20,6 +21,7 @@ import LoadingPage from './loading.component';
 
 interface ISingleTourProps {
   fetchTour: (tourId: string) => void;
+  bookTour: (tourId: string) => void;
   isLoading: boolean;
   tour: ITour;
   match?: any;
@@ -27,6 +29,7 @@ interface ISingleTourProps {
 
 const SingleTour: React.FC<ISingleTourProps> = ({
   fetchTour,
+  bookTour,
   isLoading,
   tour,
   match,
@@ -59,7 +62,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
           <img
             alt={tour.name}
             className='header__hero-img'
-            src={`https://natours-kev.herokuapp.com/img/tours/${tour.imageCover}`}
+            src={`http://localhost:8000/img/tours/${tour.imageCover}`}
           />
         </div>
 
@@ -124,7 +127,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
                   <img
                     alt={guide.name}
                     className='overview-box__img'
-                    src={`https://natours-kev.herokuapp.com/img/users/${guide.photo}`}
+                    src={`http://localhost:8000/img/users/${guide.photo}`}
                   />
                   <span className='overview-box__label'>{guide.role}</span>
                   <span className='overview-box__text'>{guide.name}</span>
@@ -147,7 +150,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
           <div key={index} className='picture-box'>
             <img
               className='picture-box__img'
-              src={`https://natours-kev.herokuapp.com/img/tours/${image}`}
+              src={`http://localhost:8000/img/tours/${image}`}
               alt='tour'
             />
           </div>
@@ -161,11 +164,11 @@ const SingleTour: React.FC<ISingleTourProps> = ({
               <div className='reviews__avatar'>
                 <img
                   className='reviews__avatar-img'
-                  src={`https://natours-kev.herokuapp.com/img/users/${review.user.photo}`}
+                  src={`http://localhost:8000/img/users/${review.user.photo}`}
                   alt={review.user.name}
                 />
                 {/* tslint:disable-next-line */}
-                <h6 className="reviews__user">{review.user.name}</h6>
+                <h6 className='reviews__user'>{review.user.name}</h6>
               </div>
               <p className='reviews__text'>{review.review}</p>
               <div className='reviews__rating'>
@@ -191,12 +194,12 @@ const SingleTour: React.FC<ISingleTourProps> = ({
           </div>
           <img
             className='cta__img cta__img--1'
-            src={`https://natours-kev.herokuapp.com/img/tours/${tour.images[1]}`}
+            src={`http://localhost:8000/img/tours/${tour.images[1]}`}
             alt={tour.name}
           />
           <img
             className='cta__img cta__img--2'
-            src={`https://natours-kev.herokuapp.com/img/tours/${tour.images[2]}`}
+            src={`http://localhost:8000/img/tours/${tour.images[2]}`}
             alt={tour.name}
           />
           <div className='cta__content'>
@@ -205,7 +208,11 @@ const SingleTour: React.FC<ISingleTourProps> = ({
               {tour.duration} days. 1 adventure. Infinite memories. Make it
               yours today!
             </p>
-            <button className='btn btn--green span-all-rows' id='book-tour'>
+            <button
+              className='btn btn--green span-all-rows'
+              id='book-tour'
+              onClick={() => bookTour(tour.id)}
+            >
               Book tour now!
             </button>
           </div>
@@ -217,6 +224,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
 
 const mapDispatchToProps = (dispatch: any) => ({
   fetchTour: (tourId: string) => dispatch(FetchSingleTour(tourId)),
+  bookTour: (tourId: string) => dispatch(StartPayment(tourId)),
 });
 
 const mapStateToProps = createStructuredSelector<IAppState, {}>({

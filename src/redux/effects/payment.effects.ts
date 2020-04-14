@@ -6,10 +6,8 @@ import { concat, from, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
 import urls from '../../urls/urls';
-import {
-  FailStoreUserDetails,
-  SuccessStoreUserDetails,
-} from '../actions/user.actions';
+import { StartBooking } from '../actions/booking.actions';
+import { FailStoreUserDetails } from '../actions/user.actions';
 import {
   selectAuthToken,
   selectLoggedInUser,
@@ -48,10 +46,7 @@ const startPayment: Epic<any, any, any, any> = (action$, state$) =>
             ),
           ).pipe(
             switchMap((data) =>
-              concat(
-                of(SuccessStoreUserDetails('Payment successful!')),
-                of(push(urls.account.bookings)),
-              ),
+              of(StartBooking(action.payload.tourId, paymentIntent.amount)),
             ),
             catchError((error) =>
               concat(

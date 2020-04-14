@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ITour from '../../../models/tour.model';
+import { getEnviromentUrl } from '../../../urls/enviroment';
 import StripeContainer from '../stripe/stripe.component';
 
 interface ICheckoutProps {
@@ -14,7 +15,7 @@ export const Checkout: React.FC<ICheckoutProps> = ({ tour }) => {
         <div className='card__picture'>
           <div className='card__picture-overlay'>&nbsp;</div>
           <img
-            src={`http://localhost:8000/img/tours/${tour.imageCover}`}
+            src={`${getEnviromentUrl()}/img/tours/${tour.imageCover}`}
             alt={tour.name}
             className='card__picture-img'
           />

@@ -4,6 +4,7 @@ import { concat, from, of } from 'rxjs';
 // tslint:disable-next-line
 import { catchError, switchMap, tap } from 'rxjs/operators';
 
+import { getEnviromentUrl } from '../../urls/enviroment';
 import { StoreLoggedInUser, StoreToken } from '../actions/auth.actions';
 import {
   FailStoreUserDetails,
@@ -22,7 +23,7 @@ const startCreateNewUser: Epic<any, any, any, any> = (action$, state$) =>
       };
       return from(
         axios.patch(
-          `http://localhost:8000/api/v1/users/update-me`,
+          `${getEnviromentUrl()}/api/v1/users/update-me`,
           {
             name: action.payload.name,
             email: action.payload.email,
@@ -54,7 +55,7 @@ const startUpdatePassword: Epic<any, any, any, any> = (action$, state$) =>
       };
       return from(
         axios.patch(
-          `http://localhost:8000/api/v1/users/update-password`,
+          `${getEnviromentUrl()}/api/v1/users/update-password`,
           {
             passwordConfirm: action.payload.passwordConfirm,
             password: action.payload.newPassword,

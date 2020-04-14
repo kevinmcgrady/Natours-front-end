@@ -5,6 +5,7 @@ import { concat, from, of } from 'rxjs';
 // tslint:disable-next-line
 import { catchError, switchMap } from 'rxjs/operators';
 
+import { getEnviromentUrl } from '../../urls/enviroment';
 import urls from '../../urls/urls';
 import { StartBooking } from '../actions/booking.actions';
 import { FailStoreUserDetails } from '../actions/user.actions';
@@ -25,7 +26,9 @@ const startPayment: Epic<any, any, any, any> = (action$, state$) =>
       };
       return from(
         axios.get(
-          `http://localhost:8000/api/v1/bookings/create-payment/${action.payload.tourId}`,
+          `${getEnviromentUrl()}/api/v1/bookings/create-payment/${
+            action.payload.tourId
+          }`,
           headers,
         ),
       ).pipe(

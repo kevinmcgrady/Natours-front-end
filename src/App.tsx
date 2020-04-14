@@ -28,7 +28,7 @@ function App() {
           path={urls.account.root}
           component={DashBoardPage}
         />
-        <Route exact path={urls.checkout} component={CheckoutPage} />
+        <AuthenticatedRoute path={urls.checkout} component={CheckoutPage} />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />

@@ -19,6 +19,7 @@ import {
   selectIsLoading,
   selectTour,
 } from '../redux/selectors/tours.selectors';
+import { getEnviromentUrl } from '../urls/enviroment';
 import urls from '../urls/urls';
 
 import LoadingPage from './loading.component';
@@ -68,7 +69,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
           <img
             alt={tour.name}
             className='header__hero-img'
-            src={`http://localhost:8000/img/tours/${tour.imageCover}`}
+            src={`${getEnviromentUrl()}/img/tours/${tour.imageCover}`}
           />
         </div>
 
@@ -133,7 +134,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
                   <img
                     alt={guide.name}
                     className='overview-box__img'
-                    src={`http://localhost:8000/img/users/${guide.photo}`}
+                    src={`${getEnviromentUrl()}/img/users/${guide.photo}`}
                   />
                   <span className='overview-box__label'>{guide.role}</span>
                   <span className='overview-box__text'>{guide.name}</span>
@@ -156,7 +157,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
           <div key={index} className='picture-box'>
             <img
               className='picture-box__img'
-              src={`http://localhost:8000/img/tours/${image}`}
+              src={`${getEnviromentUrl()}/img/tours/${image}`}
               alt='tour'
             />
           </div>
@@ -170,7 +171,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
               <div className='reviews__avatar'>
                 <img
                   className='reviews__avatar-img'
-                  src={`http://localhost:8000/img/users/${review.user.photo}`}
+                  src={`${getEnviromentUrl()}/img/users/${review.user.photo}`}
                   alt={review.user.name}
                 />
                 {/* tslint:disable-next-line */}
@@ -200,12 +201,12 @@ const SingleTour: React.FC<ISingleTourProps> = ({
           </div>
           <img
             className='cta__img cta__img--1'
-            src={`http://localhost:8000/img/tours/${tour.images[1]}`}
+            src={`${getEnviromentUrl()}/img/tours/${tour.images[1]}`}
             alt={tour.name}
           />
           <img
             className='cta__img cta__img--2'
-            src={`http://localhost:8000/img/tours/${tour.images[2]}`}
+            src={`${getEnviromentUrl()}/img/tours/${tour.images[2]}`}
             alt={tour.name}
           />
           <div className='cta__content'>

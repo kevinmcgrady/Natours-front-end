@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { formatDate } from '../../../../core/formatters/date/formatters';
 import ITour from '../../../../models/tour.model';
+import { getEnviromentUrl } from '../../../../urls/enviroment';
 import { Icon } from '../../../atoms/icon/icon.component';
 
 interface ICardProps {
@@ -18,7 +19,7 @@ export const Card: React.FC<ICardProps> = ({ tour }) => {
           <img
             alt={tour.name}
             className='card__picture-img'
-            src={`http://localhost:8000/img/tours/${tour.imageCover}`}
+            src={`${getEnviromentUrl()}/img/tours/${tour.imageCover}`}
           />
         </div>
         <h3 className='heading-tertirary'>

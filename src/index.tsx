@@ -1,3 +1,5 @@
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { ConnectedRouter } from 'connected-react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -6,17 +8,22 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
+import { config } from './config';
 import './index.css';
 import { history } from './redux/reducers/main.reducer';
 import { persistor, store } from './redux/store';
 import * as serviceWorker from './serviceWorker';
+
+const stripePromise = loadStripe(config.STRIPE_KEY);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <PersistGate persistor={persistor}>
-          <App />
+          <Elements stripe={stripePromise}>
+            <App />
+          </Elements>
         </PersistGate>
       </ConnectedRouter>
     </Provider>

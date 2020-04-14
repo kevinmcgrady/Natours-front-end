@@ -6,11 +6,15 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import { AuthReducer, IAuthState } from './auth.reducer';
+import { IPaymentState, PaymentReducer } from './payment.reducer';
 import { IToursState, ToursReducer } from './tours.reducer';
+import { IUsersState, UsersReducer } from './user.reducer';
 
 export interface IAppState {
   tours: IToursState;
   auth: IAuthState;
+  users: IUsersState;
+  payment: IPaymentState;
 }
 
 export const history = createBrowserHistory();
@@ -24,6 +28,8 @@ const persistConfig = {
 const MainReducer = combineReducers({
   tours: ToursReducer,
   auth: AuthReducer,
+  users: UsersReducer,
+  payment: PaymentReducer,
   router: connectRouter(history),
 });
 

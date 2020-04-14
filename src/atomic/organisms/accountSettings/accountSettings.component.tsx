@@ -4,6 +4,10 @@ import { createStructuredSelector } from 'reselect';
 
 import { email, required } from '../../../core/validators/form/validators';
 import { IUser } from '../../../models/user.model';
+import {
+  StartStoreUserDetails,
+  StartUpdatePassword,
+} from '../../../redux/actions/user.actions';
 import { IAppState } from '../../../redux/reducers/main.reducer';
 import { selectLoggedInUser } from '../../../redux/selectors/auth.selectors';
 import { FormField } from '../../molecules/forms/form-field/form-field';
@@ -14,9 +18,20 @@ import { TextInput } from '../../molecules/forms/text-input/text-input';
 
 interface IAccountSettingsProps {
   user: IUser;
+  submitDetails: (email: string, name: string, loader: any) => void;
+  updatePassword: (
+    currentPassword: string,
+    newPassword: string,
+    passwordConfirm: string,
+    loader: any,
+  ) => void;
 }
 
-const AccountSettings: React.FC<IAccountSettingsProps> = ({ user }) => {
+const AccountSettings: React.FC<IAccountSettingsProps> = ({
+  user,
+  submitDetails,
+  updatePassword,
+}) => {
   return (
     <>
       <div className='user-view__form-container'>
@@ -24,7 +39,9 @@ const AccountSettings: React.FC<IAccountSettingsProps> = ({ user }) => {
         <Form
           name='accountSettings'
           state={{ name: user.name, email: user.email }}
-          onSubmit={(state, loader) => console.log(state)}
+          onSubmit={(state, loader) =>
+            submitDetails(state.email, state.name, loader)
+          }
         >
           <FormField
             label='Name'
@@ -49,7 +66,14 @@ const AccountSettings: React.FC<IAccountSettingsProps> = ({ user }) => {
         <Form
           name='passwordChange'
           state={{ currentPassword: '', newPassword: '', passwordConfirm: '' }}
-          onSubmit={(state, loader) => console.log(state)}
+          onSubmit={(state, loader) =>
+            updatePassword(
+              state.currentPassword,
+              state.newPassword,
+              state.passwordConfirm,
+              loader,
+            )
+          }
         >
           <FormField
             label='Current password'
@@ -83,4 +107,23 @@ const mapStateToProps = createStructuredSelector<IAppState, {}>({
   user: selectLoggedInUser,
 });
 
-export default connect(mapStateToProps)(AccountSettings);
+const mapDispatchToProps = (dispatch: any) => ({
+  submitDetails: (userEmail: string, name: string, loader: any) =>
+    dispatch(StartStoreUserDetails(userEmail, name, loader)),
+  updatePassword: (
+    currentPassword: string,
+    newPassword: string,
+    passwordConfirm: string,
+    loader: any,
+  ) =>
+    dispatch(
+      StartUpdatePassword(
+        currentPassword,
+        newPassword,
+        passwordConfirm,
+        loader,
+      ),
+    ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountSettings);

@@ -60,7 +60,7 @@ const Header: React.FC<IHeaderProps> = ({
             <Link className='nav__el' to={urls.account.settings}>
               <img
                 className='nav__user-img'
-                src={`https://natours-kev.herokuapp.com/img/users/${user?.photo}`}
+                src={`http://localhost:8000/img/users/${user?.photo}`}
                 alt={user?.name}
               />
               <span>{user?.name.split(' ')[0]}</span>

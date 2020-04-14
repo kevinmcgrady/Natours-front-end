@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { Page } from '../atomic/atoms/page/page.component';
-import { ErrorCard } from '../atomic/molecules/cards/error-card/error-card.component';
+import { InfoCard } from '../atomic/molecules/cards/info-card/info-card.component';
 import { FormField } from '../atomic/molecules/forms/form-field/form-field';
 import { Form } from '../atomic/molecules/forms/form/form';
 import { PasswordInput } from '../atomic/molecules/forms/password-input/password-input';
@@ -23,7 +23,7 @@ const Login: React.FC<ILoginProps> = ({ login, errorMessage }) => {
   console.log(errorMessage);
   return (
     <Page>
-      {errorMessage && <ErrorCard message={errorMessage} />}
+      {errorMessage && <InfoCard type='fail' message={errorMessage} />}
       <div className='login-form'>
         <h2 className='heading-secondary ma-bt-lg'>Log into your account</h2>
         <Form

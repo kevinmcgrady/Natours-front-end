@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 import WhiteLogo from '../assets/images/logo-white.png';
@@ -11,6 +12,10 @@ import ITour from '../models/tour.model';
 import { FetchSingleTour } from '../redux/actions/tours.actions';
 import { IAppState } from '../redux/reducers/main.reducer';
 import {
+  selectAuthIsLoggedIn,
+  selectAuthToken,
+} from '../redux/selectors/auth.selectors';
+import {
   selectIsLoading,
   selectTour,
 } from '../redux/selectors/tours.selectors';
@@ -20,6 +25,8 @@ import LoadingPage from './loading.component';
 
 interface ISingleTourProps {
   fetchTour: (tourId: string) => void;
+  isLoggedIn: boolean;
+  token: string;
   isLoading: boolean;
   tour: ITour;
   match?: any;
@@ -27,6 +34,8 @@ interface ISingleTourProps {
 
 const SingleTour: React.FC<ISingleTourProps> = ({
   fetchTour,
+  isLoggedIn,
+  token,
   isLoading,
   tour,
   match,
@@ -59,7 +68,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
           <img
             alt={tour.name}
             className='header__hero-img'
-            src={`https://natours-kev.herokuapp.com/img/tours/${tour.imageCover}`}
+            src={`http://localhost:8000/img/tours/${tour.imageCover}`}
           />
         </div>
 
@@ -124,7 +133,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
                   <img
                     alt={guide.name}
                     className='overview-box__img'
-                    src={`https://natours-kev.herokuapp.com/img/users/${guide.photo}`}
+                    src={`http://localhost:8000/img/users/${guide.photo}`}
                   />
                   <span className='overview-box__label'>{guide.role}</span>
                   <span className='overview-box__text'>{guide.name}</span>
@@ -147,7 +156,7 @@ const SingleTour: React.FC<ISingleTourProps> = ({
           <div key={index} className='picture-box'>
             <img
               className='picture-box__img'
-              src={`https://natours-kev.herokuapp.com/img/tours/${image}`}
+              src={`http://localhost:8000/img/tours/${image}`}
               alt='tour'
             />
           </div>
@@ -161,11 +170,11 @@ const SingleTour: React.FC<ISingleTourProps> = ({
               <div className='reviews__avatar'>
                 <img
                   className='reviews__avatar-img'
-                  src={`https://natours-kev.herokuapp.com/img/users/${review.user.photo}`}
+                  src={`http://localhost:8000/img/users/${review.user.photo}`}
                   alt={review.user.name}
                 />
                 {/* tslint:disable-next-line */}
-                <h6 className="reviews__user">{review.user.name}</h6>
+                <h6 className='reviews__user'>{review.user.name}</h6>
               </div>
               <p className='reviews__text'>{review.review}</p>
               <div className='reviews__rating'>
@@ -191,12 +200,12 @@ const SingleTour: React.FC<ISingleTourProps> = ({
           </div>
           <img
             className='cta__img cta__img--1'
-            src={`https://natours-kev.herokuapp.com/img/tours/${tour.images[1]}`}
+            src={`http://localhost:8000/img/tours/${tour.images[1]}`}
             alt={tour.name}
           />
           <img
             className='cta__img cta__img--2'
-            src={`https://natours-kev.herokuapp.com/img/tours/${tour.images[2]}`}
+            src={`http://localhost:8000/img/tours/${tour.images[2]}`}
             alt={tour.name}
           />
           <div className='cta__content'>
@@ -205,9 +214,22 @@ const SingleTour: React.FC<ISingleTourProps> = ({
               {tour.duration} days. 1 adventure. Infinite memories. Make it
               yours today!
             </p>
-            <button className='btn btn--green span-all-rows' id='book-tour'>
-              Book tour now!
-            </button>
+            {isLoggedIn && token && (
+              <Link
+                className='btn btn--green span-all-rows'
+                to={`/checkout/${tour.id}`}
+              >
+                Book tour
+              </Link>
+            )}
+            {!isLoggedIn && !token && (
+              <Link
+                className='btn btn--green span-all-rows'
+                to={urls.auth.login}
+              >
+                Login to book
+              </Link>
+            )}
           </div>
         </div>
       </section>
@@ -222,6 +244,8 @@ const mapDispatchToProps = (dispatch: any) => ({
 const mapStateToProps = createStructuredSelector<IAppState, {}>({
   isLoading: selectIsLoading,
   tour: selectTour,
+  isLoggedIn: selectAuthIsLoggedIn,
+  token: selectAuthToken,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleTour);

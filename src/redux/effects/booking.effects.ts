@@ -5,6 +5,7 @@ import { from, of } from 'rxjs';
 // tslint:disable-next-line
 import { catchError, switchMap } from 'rxjs/operators';
 
+import { getEnviromentUrl } from '../../urls/enviroment';
 import urls from '../../urls/urls';
 import { selectAuthToken } from '../selectors/auth.selectors';
 import { BookingActionTypes } from '../types/booking.types';
@@ -19,7 +20,7 @@ const startBooking: Epic<any, any, any, any> = (action$, state$) =>
       };
       return from(
         axios.post(
-          `http://localhost:8000/api/v1/bookings/create-booking-checkout`,
+          `${getEnviromentUrl()}/api/v1/bookings/create-booking-checkout`,
           {
             tour: action.payload.tourId,
             price: action.payload.price,

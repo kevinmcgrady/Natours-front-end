@@ -12,6 +12,7 @@ import {
   selectAuthToken,
   selectLoggedInUser,
 } from '../../../redux/selectors/auth.selectors';
+import { getEnviromentUrl } from '../../../urls/enviroment';
 import urls from '../../../urls/urls';
 
 interface IHeaderProps {
@@ -60,7 +61,7 @@ const Header: React.FC<IHeaderProps> = ({
             <Link className='nav__el' to={urls.account.settings}>
               <img
                 className='nav__user-img'
-                src={`http://localhost:8000/img/users/${user?.photo}`}
+                src={`${getEnviromentUrl()}/img/users/${user?.photo}`}
                 alt={user?.name}
               />
               <span>{user?.name.split(' ')[0]}</span>

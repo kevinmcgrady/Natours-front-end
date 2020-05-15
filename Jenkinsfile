@@ -43,6 +43,5 @@ pipeline {
         pullRequest.addLabel('Build Failed')
       }
     }
-    
   }
 }

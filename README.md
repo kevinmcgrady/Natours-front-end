@@ -1,4 +1,3 @@
-
 # Natours API
 
 Natours is a tour booking system, features include:
@@ -39,3 +38,5 @@ Natours is a tour booking system, features include:
 > npm test - to test the application.
 
 > npm run build - to build the application for deployment.
+
+> Every PR will be tested by a test pipeline

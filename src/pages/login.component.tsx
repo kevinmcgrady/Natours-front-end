@@ -20,7 +20,6 @@ interface ILoginProps {
 }
 
 const Login: React.FC<ILoginProps> = ({ login, errorMessage }) => {
-  console.log(errorMessage);
   return (
     <Page>
       {errorMessage && <InfoCard type='fail' message={errorMessage} />}

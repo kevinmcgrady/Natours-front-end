@@ -3,6 +3,8 @@ const urls = {
   auth: {
     login: '/login',
     register: '/register',
+    forgotPassword: '/forgot-password',
+    resetPassword: '/reset-password/:token',
   },
   account: {
     root: '/dashboard',

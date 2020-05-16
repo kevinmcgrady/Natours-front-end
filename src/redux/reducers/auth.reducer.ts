@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 import { IUser } from '../../models/user.model';
 import { AuthActionTypes } from '../types/auth.types';
 
@@ -64,6 +66,7 @@ export const AuthReducer = (
         errorMessage: action.payload.message,
       };
     case AuthActionTypes.Logout:
+      Cookies.remove('jwt');
       return {
         ...state,
         isLoggedIn: false,

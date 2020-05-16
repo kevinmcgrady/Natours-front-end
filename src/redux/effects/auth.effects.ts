@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { push } from 'connected-react-router';
+import Cookies from 'js-cookie';
 import { combineEpics, Epic } from 'redux-observable';
 import { concat, from, of } from 'rxjs';
 // tslint:disable-next-line
@@ -25,6 +26,7 @@ const fetchTokenEpic: Epic<any, any, any, any> = (action$) =>
         }),
       ).pipe(
         switchMap((res) => {
+          Cookies.set('jwt', res.data.token, { expires: 1 });
           return concat(
             of(StoreToken(res.data.token)),
             of(StoreLoggedInUser(res.data.data.user)),
@@ -50,6 +52,7 @@ const startCreateNewUser: Epic<any, any, any, any> = (action$) =>
         }),
       ).pipe(
         switchMap((res) => {
+          Cookies.set('jwt', res.data.token, { expires: 1 });
           return concat(
             of(StoreToken(res.data.token)),
             of(StoreLoggedInUser(res.data.data.user)),

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { combineEpics, Epic } from 'redux-observable';
 import { concat, from, of } from 'rxjs';
 // tslint:disable-next-line
@@ -65,6 +66,7 @@ const startUpdatePassword: Epic<any, any, any, any> = (action$, state$) =>
         ),
       ).pipe(
         switchMap((res) => {
+          Cookies.set('jwt', res.data.token, { expires: 1 });
           return concat(
             of(StoreLoggedInUser(res.data.data.user)),
             of(StoreToken(res.data.token)),

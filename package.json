@@ -1,6 +1,10 @@
 {
   "name": "natours-react",
   "version": "0.1.0",
+  "engines": {
+    "npm": "6.13.4",
+    "node": "12.16.1"
+  },
   "private": true,
   "dependencies": {
     "@stripe/react-stripe-js": "^1.1.2",

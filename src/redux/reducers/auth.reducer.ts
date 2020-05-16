@@ -65,6 +65,16 @@ export const AuthReducer = (
         isLoading: false,
         errorMessage: action.payload.message,
       };
+    case AuthActionTypes.StartForgotPassword:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case AuthActionTypes.StartResetPassword:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case AuthActionTypes.Logout:
       Cookies.remove('jwt');
       return {

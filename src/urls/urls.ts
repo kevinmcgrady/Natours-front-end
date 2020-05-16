@@ -4,6 +4,7 @@ const urls = {
     login: '/login',
     register: '/register',
     forgotPassword: '/forgot-password',
+    successForgotPassword: '/forgot-password-confirm',
     resetPassword: '/reset-password/:token',
   },
   account: {

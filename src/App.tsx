@@ -19,6 +19,12 @@ const CheckoutPage = React.lazy(() => import('./pages/checkout.component'));
 const ForgotPasswordPage = React.lazy(() =>
   import('./pages/forgotPassword.component'),
 );
+const SuccessForgotPasswordPage = React.lazy(() =>
+  import('./pages/successForgotPassword.component'),
+);
+const ResetPasswordPage = React.lazy(() =>
+  import('./pages/resetPassword.component'),
+);
 const ErrorPage = React.lazy(() => import('./pages/error.component'));
 
 interface IAppProps {
@@ -51,6 +57,16 @@ const App: React.FC<IAppProps> = ({ logout }) => {
           exact
           path={urls.auth.forgotPassword}
           component={ForgotPasswordPage}
+        />
+        <Route
+          exact
+          path={urls.auth.successForgotPassword}
+          component={SuccessForgotPasswordPage}
+        />
+        <Route
+          exact
+          path={urls.auth.resetPassword}
+          component={ResetPasswordPage}
         />
         <Route component={ErrorPage} />
       </Switch>

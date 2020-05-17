@@ -35,7 +35,10 @@ const Header: React.FC<IHeaderProps> = ({
   return (
     <header className='header'>
       <nav className='nav nav--tours'>
-        <Link className='nav__el' to={urls.homepage}>
+        <Link
+          className='nav__el'
+          to={{ pathname: urls.homepage, search: '?page=1' }}
+        >
           All tours
         </Link>
       </nav>

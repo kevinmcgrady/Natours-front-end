@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -19,7 +20,12 @@ const Pagination: React.FC<IPaginationProps> = ({
   );
 
   const onClickHandler = (pageNumber: number) => {
-    history.push({ search: `?page=${pageNumber}` });
+    const currentQueryString = queryString.parse(location.search);
+    const newQueryString = {
+      ...currentQueryString,
+      page: pageNumber,
+    };
+    history.push({ search: queryString.stringify(newQueryString) });
   };
 
   for (let i: number = 0; i < totalPages; i++) {

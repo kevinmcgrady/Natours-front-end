@@ -12,3 +12,8 @@ export const selectIsLoading = createSelector(
 export const selectTours = createSelector([toursState], (tours) => tours.tours);
 
 export const selectTour = createSelector([toursState], (tour) => tour.tour);
+
+export const selectTourTotalPages = createSelector(
+  [toursState],
+  (tour) => tour.numberOfPages,
+);

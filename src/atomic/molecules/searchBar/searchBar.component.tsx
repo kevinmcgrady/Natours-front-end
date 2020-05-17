@@ -1,17 +1,27 @@
+import queryString from 'query-string';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 
 interface ISearchBarProps {
   history?: any;
+  location?: any;
 }
 
-const SearchBar: React.FC<ISearchBarProps> = ({ history }) => {
+const SearchBar: React.FC<ISearchBarProps> = ({ history, location }) => {
   const [searchString, setSearchString] = useState('');
   const [sortBy, setSortBy] = useState('');
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    history.push({ search: `?search=${searchString}&sort=${sortBy}` });
+    const queryValues = queryString.parse(location.search);
+    const newQueryString = {
+      ...queryValues,
+      search: searchString,
+      sort: sortBy,
+      page: 1,
+    };
+
+    history.push({ search: queryString.stringify(newQueryString) });
   };
 
   const changeHandler = (searchedString: string) => {

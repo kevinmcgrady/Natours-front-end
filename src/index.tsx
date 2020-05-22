@@ -8,13 +8,12 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App';
-import { config } from './config';
 import './index.css';
 import { history } from './redux/reducers/main.reducer';
 import { persistor, store } from './redux/store';
 import * as serviceWorker from './serviceWorker';
 
-const stripePromise = loadStripe(config.STRIPE_KEY);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY as string);
 
 ReactDOM.render(
   <React.StrictMode>

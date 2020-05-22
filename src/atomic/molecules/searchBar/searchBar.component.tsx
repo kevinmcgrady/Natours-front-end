@@ -48,28 +48,16 @@ const SearchBar: React.FC<ISearchBarProps> = ({ history, location }) => {
           name=''
           id=''
         >
-          <option role='option' aria-selected='false' value=''>
+          <option aria-selected='false' value=''>
             Sortby
           </option>
-          <option
-            role='option'
-            aria-selected={sortBy === 'duration'}
-            value='duration'
-          >
+          <option aria-selected={sortBy === 'duration'} value='duration'>
             Duration
           </option>
-          <option
-            role='option'
-            aria-selected={sortBy === 'price'}
-            value='price'
-          >
+          <option aria-selected={sortBy === 'price'} value='price'>
             Price
           </option>
-          <option
-            role='option'
-            aria-selected={sortBy === 'difficulty'}
-            value='difficulty'
-          >
+          <option aria-selected={sortBy === 'difficulty'} value='difficulty'>
             Difficulty
           </option>
         </select>

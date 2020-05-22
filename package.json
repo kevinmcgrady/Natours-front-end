@@ -26,6 +26,8 @@
     "axios": "^0.19.2",
     "connected-react-router": "^6.8.0",
     "dayjs": "^1.8.24",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
     "history": "^4.10.1",
     "husky": "^4.2.5",
     "js-cookie": "^2.2.1",
@@ -50,7 +52,8 @@
     "yup": "^0.28.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:dev": "react-scripts start",
+    "start": "node server.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts{x,}'",
     "pre-commit": "npm run lint",
     "lint-fix": "tslint 'src/**/*.ts{x,}' --fix",

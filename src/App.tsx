@@ -1,10 +1,13 @@
-import React, { Suspense } from 'react';
+import Cookies from 'js-cookie';
+import React, { Suspense, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import AuthenticatedRoute from './atomic/molecules/authenticatedRoute/authenticatedRoute.component';
 import { Footer } from './atomic/organisms/footer/footer.component';
 import Header from './atomic/organisms/header/header.component';
 import LoadingPage from './pages/loading.component';
+import { Logout } from './redux/actions/auth.actions';
 import urls from './urls/urls';
 
 const Homepage = React.lazy(() => import('./pages/homepage.component'));
@@ -13,9 +16,30 @@ const RegisterPage = React.lazy(() => import('./pages/register.component'));
 const SinglePage = React.lazy(() => import('./pages/single-tour.component'));
 const DashBoardPage = React.lazy(() => import('./pages/dashboard.component'));
 const CheckoutPage = React.lazy(() => import('./pages/checkout.component'));
+const ForgotPasswordPage = React.lazy(() =>
+  import('./pages/forgotPassword.component'),
+);
+const SuccessForgotPasswordPage = React.lazy(() =>
+  import('./pages/successForgotPassword.component'),
+);
+const ResetPasswordPage = React.lazy(() =>
+  import('./pages/resetPassword.component'),
+);
 const ErrorPage = React.lazy(() => import('./pages/error.component'));
 
-function App() {
+interface IAppProps {
+  logout: () => void;
+}
+
+const App: React.FC<IAppProps> = ({ logout }) => {
+  // check if cookie is still valid
+  useEffect(() => {
+    const jwtCookie = Cookies.get('jwt');
+    if (!jwtCookie) {
+      logout();
+    }
+  }, [logout]);
+
   return (
     <Suspense fallback={<LoadingPage />}>
       <Header />
@@ -29,11 +53,30 @@ function App() {
           component={DashBoardPage}
         />
         <AuthenticatedRoute path={urls.checkout} component={CheckoutPage} />
+        <Route
+          exact
+          path={urls.auth.forgotPassword}
+          component={ForgotPasswordPage}
+        />
+        <Route
+          exact
+          path={urls.auth.successForgotPassword}
+          component={SuccessForgotPasswordPage}
+        />
+        <Route
+          exact
+          path={urls.auth.resetPassword}
+          component={ResetPasswordPage}
+        />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />
     </Suspense>
   );
-}
+};
 
-export default App;
+const mapDispatchToProps = (dispatch: any) => ({
+  logout: () => dispatch(Logout()),
+});
+
+export default connect(null, mapDispatchToProps)(App);

@@ -12,8 +12,14 @@ const fetchToursEpic: Epic<any, any, any, any> = (action$) =>
   action$.pipe(
     ofType(ToursActionTypes.FetchTours),
     mergeMap((action) =>
-      from(axios.get(`${getEnviromentUrl()}/api/v1/tours`)).pipe(
-        map((res) => StoreTours(res.data.data.data)),
+      from(
+        axios.get(
+          `${getEnviromentUrl()}/api/v1/tours${
+            action.payload.queryString ? action.payload.queryString : ''
+          }`,
+        ),
+      ).pipe(
+        map((res) => StoreTours(res.data.data.data, res.data.data.totalPages)),
       ),
     ),
   );

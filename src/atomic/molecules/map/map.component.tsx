@@ -1,10 +1,9 @@
 import mapboxgl from 'mapbox-gl';
 import React, { useEffect } from 'react';
 
-import { config } from '../../../config';
 import { ILocation } from '../../../models/tour.model';
 
-mapboxgl.accessToken = config.MAP_API_KEY;
+mapboxgl.accessToken = process.env.REACT_APP_MAP_API_KEY as string;
 
 interface IMapProps {
   locations: ILocation[];
@@ -53,7 +52,7 @@ export const Map: React.FC<IMapProps> = ({ locations }) => {
 
   return (
     <section className='section-map'>
-      <div id='map'/>
+      <div id='map' />
     </section>
   );
 };

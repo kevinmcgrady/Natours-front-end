@@ -1,12 +1,13 @@
 import { ToursActionTypes } from '../types/tours.types';
 
-export const FetchTours = () => ({
+export const FetchTours = (queryString: string) => ({
   type: ToursActionTypes.FetchTours,
+  payload: { queryString },
 });
 
-export const StoreTours = (tours: any) => ({
+export const StoreTours = (tours: any, numberOfPages: number) => ({
   type: ToursActionTypes.StoreTours,
-  payload: { tours },
+  payload: { tours, numberOfPages },
 });
 
 export const FetchSingleTour = (tourId: string) => ({

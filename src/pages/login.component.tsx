@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 import { Page } from '../atomic/atoms/page/page.component';
@@ -13,6 +14,7 @@ import { email, required } from '../core/validators/form/validators';
 import { FetchToken } from '../redux/actions/auth.actions';
 import { IAppState } from '../redux/reducers/main.reducer';
 import { selectAuthErrorMessage } from '../redux/selectors/auth.selectors';
+import urls from '../urls/urls';
 
 interface ILoginProps {
   login: (email: string, password: string, loader: any) => void;
@@ -20,7 +22,6 @@ interface ILoginProps {
 }
 
 const Login: React.FC<ILoginProps> = ({ login, errorMessage }) => {
-  console.log(errorMessage);
   return (
     <Page>
       {errorMessage && <InfoCard type='fail' message={errorMessage} />}
@@ -49,6 +50,12 @@ const Login: React.FC<ILoginProps> = ({ login, errorMessage }) => {
           </FormField>
           <SubmitButton>Login</SubmitButton>
         </Form>
+        <div className='forgot-password'>
+          <p>
+            Forgot password? Reset your password{' '}
+            <Link to={urls.auth.forgotPassword}>here</Link>
+          </p>
+        </div>
       </div>
     </Page>
   );

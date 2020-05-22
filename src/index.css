@@ -1394,6 +1394,7 @@ button:disabled {
 }
 
 .form__input {
+  appearance: none;
   display: block;
   font-family: inherit;
   font-size: 1.5rem;
@@ -1647,4 +1648,65 @@ button:disabled {
 
 .stripe-container {
   padding: 2.5rem 3em;
+}
+
+/* Forgot password */
+.forgot-password {
+  margin-top: 2.5rem;
+}
+
+.forgot-password p {
+  font-size: 1.4rem;
+}
+
+.forgot-password a {
+  color: #55c57a;
+  font-weight: bold;
+}
+
+/* Search bar */
+.search-bar {
+  margin-bottom: 2.5rem;
+}
+
+.search-bar form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar form .search-input {
+  margin-right: 1rem;
+  flex: 3;
+}
+
+.search-bar form .sortby-input {
+  margin-right: 1rem;
+  flex: 1;
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  margin-top: 2.5rem;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 3px;
+}
+
+.pagination-container .page {
+  padding: 1rem;
+  margin: 1rem;
+  color: #20bf6b;
+}
+
+.pagination-container .page:hover {
+  background-color: #20bf6b;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pagination-container .page.active {
+  background-color: #20bf6b;
+  color: #fff;
 }

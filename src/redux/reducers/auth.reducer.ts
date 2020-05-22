@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 import { IUser } from '../../models/user.model';
 import { AuthActionTypes } from '../types/auth.types';
 
@@ -63,7 +65,18 @@ export const AuthReducer = (
         isLoading: false,
         errorMessage: action.payload.message,
       };
+    case AuthActionTypes.StartForgotPassword:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case AuthActionTypes.StartResetPassword:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case AuthActionTypes.Logout:
+      Cookies.remove('jwt');
       return {
         ...state,
         isLoggedIn: false,

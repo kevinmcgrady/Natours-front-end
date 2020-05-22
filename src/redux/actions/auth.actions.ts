@@ -31,6 +31,21 @@ export const CreateUserFail = (message: string) => ({
   payload: { message },
 });
 
+export const StartForgotPassword = (email: string, loader: any) => ({
+  type: AuthActionTypes.StartForgotPassword,
+  payload: { email, loader },
+});
+
+export const StartResetPassword = (
+  newPassword: string,
+  newPasswordConfirm: string,
+  token: string,
+  loader: any,
+) => ({
+  type: AuthActionTypes.StartResetPassword,
+  payload: { newPassword, newPasswordConfirm, loader, token },
+});
+
 export const Logout = () => ({
   type: AuthActionTypes.Logout,
 });

@@ -5,28 +5,40 @@ import { createStructuredSelector } from 'reselect';
 import { Page } from '../atomic/atoms/page/page.component';
 import { CardContainer } from '../atomic/molecules/cards/card-container/card-container.component';
 import { Card } from '../atomic/molecules/cards/card/card.component';
+import Pagination from '../atomic/molecules/pagination/pagination.component';
+import SearchBar from '../atomic/molecules/searchBar/searchBar.component';
+import ITour from '../models/tour.model';
 import LoadingPage from '../pages/loading.component';
 import { FetchTours } from '../redux/actions/tours.actions';
 import { IAppState } from '../redux/reducers/main.reducer';
 import {
   selectIsLoading,
   selectTours,
+  selectTourTotalPages,
 } from '../redux/selectors/tours.selectors';
 
 interface IHomepageProps {
-  fetchTours: () => null;
+  fetchTours: (queryString: string) => null;
   isLoading: boolean;
-  tours: [];
+  tours: ITour[] | [];
+  totalPages: number;
+  location: any;
 }
 
 const Homepage: React.FC<IHomepageProps> = ({
   fetchTours,
   isLoading,
   tours = [],
+  totalPages,
+  location,
 }) => {
+  const paginationProps = {
+    totalPages,
+  };
   useEffect(() => {
-    fetchTours();
-  }, [fetchTours]);
+    const queryString = location.search;
+    fetchTours(queryString);
+  }, [fetchTours, location]);
 
   if (isLoading) {
     return <LoadingPage />;
@@ -34,22 +46,25 @@ const Homepage: React.FC<IHomepageProps> = ({
 
   return (
     <Page>
+      <SearchBar />
       <CardContainer>
         {tours.map((tour, index) => (
           <Card key={index} tour={tour} />
         ))}
       </CardContainer>
+      <Pagination {...paginationProps} />
     </Page>
   );
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
-  fetchTours: () => dispatch(FetchTours()),
+  fetchTours: (queryString: string) => dispatch(FetchTours(queryString)),
 });
 
 const mapStateToProps = createStructuredSelector<IAppState, {}>({
   isLoading: selectIsLoading,
   tours: selectTours,
+  totalPages: selectTourTotalPages,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

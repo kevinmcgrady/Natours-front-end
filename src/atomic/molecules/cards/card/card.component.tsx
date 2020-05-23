@@ -36,15 +36,19 @@ export const Card: React.FC<ICardProps> = ({ tour }) => {
           <span>{tour.startLocation.description}</span>
         </div>
         <div className='card__data'>
-          <Icon iconName='icon-map-pin' />
+          <Icon iconName='icon-calendar' />
           <span>{formatDate(tour.startDates[0])}</span>
         </div>
         <div className='card__data'>
-          <Icon iconName='icon-map-pin' />
-          <span>{tour.locations.length} stops</span>
+          <Icon iconName='icon-flag' />
+          <span>
+            {tour.locations.length > 1
+              ? `${tour.locations.length} stops`
+              : `${tour.locations.length} stop`}
+          </span>
         </div>
         <div className='card__data'>
-          <Icon iconName='icon-map-pin' />
+          <Icon iconName='icon-user' />
           <span>{tour.maxGroupSize} people</span>
         </div>
       </div>

@@ -1,23 +1,43 @@
 import queryString from 'query-string';
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
+
+import {
+  SetSearchOption,
+  SetSearchTerm,
+} from '../../../redux/actions/search.actions';
+import { IAppState } from '../../../redux/reducers/main.reducer';
+import {
+  selectSearchOption,
+  selectSearchTerm,
+} from '../../../redux/selectors/search.selectors';
 
 interface ISearchBarProps {
   history?: any;
   location?: any;
+  setSearchTerm?: (searchTerm: string) => void;
+  setSearchOption?: (searchOption: string) => void;
+  searchTerm?: string;
+  searchOption?: string;
 }
 
-const SearchBar: React.FC<ISearchBarProps> = ({ history, location }) => {
-  const [searchString, setSearchString] = useState('');
-  const [sortBy, setSortBy] = useState('');
-
+const SearchBar: React.FC<ISearchBarProps> = ({
+  history,
+  location,
+  setSearchOption,
+  setSearchTerm,
+  searchOption = '',
+  searchTerm = '',
+}) => {
   const submitHandler = (e: any) => {
     e.preventDefault();
     const queryValues = queryString.parse(location.search);
     const newQueryString = {
       ...queryValues,
-      search: searchString,
-      sort: sortBy,
+      search: searchTerm,
+      sort: searchOption,
       page: 1,
     };
 
@@ -25,18 +45,18 @@ const SearchBar: React.FC<ISearchBarProps> = ({ history, location }) => {
   };
 
   const changeHandler = (searchedString: string) => {
-    setSearchString(searchedString);
+    if (setSearchTerm) { setSearchTerm(searchedString); }
   };
 
   const sortByChangeHandler = (option: string) => {
-    setSortBy(option);
+    if (setSearchOption) { setSearchOption(option); }
   };
 
   return (
     <section className='search-bar'>
       <form onSubmit={(e) => submitHandler(e)}>
         <input
-          value={searchString}
+          value={searchTerm}
           onChange={(e) => changeHandler(e.target.value)}
           className='form__input search-input'
           type='text'
@@ -45,19 +65,29 @@ const SearchBar: React.FC<ISearchBarProps> = ({ history, location }) => {
         <select
           onBlur={(e) => sortByChangeHandler(e.target.value)}
           className='form__input sortby-input'
-          name=''
-          id=''
         >
           <option aria-selected='false' value=''>
             Sortby
           </option>
-          <option aria-selected={sortBy === 'duration'} value='duration'>
+          <option
+            selected={searchOption === 'duration'}
+            aria-selected={searchOption === 'duration'}
+            value='duration'
+          >
             Duration
           </option>
-          <option aria-selected={sortBy === 'price'} value='price'>
+          <option
+            selected={searchOption === 'price'}
+            aria-selected={searchOption === 'price'}
+            value='price'
+          >
             Price
           </option>
-          <option aria-selected={sortBy === 'difficulty'} value='difficulty'>
+          <option
+            selected={searchOption === 'difficulty'}
+            aria-selected={searchOption === 'difficulty'}
+            value='difficulty'
+          >
             Difficulty
           </option>
         </select>
@@ -69,4 +99,18 @@ const SearchBar: React.FC<ISearchBarProps> = ({ history, location }) => {
   );
 };
 
-export default withRouter(SearchBar);
+const mapDispatchToProps = (dispatch: any) => ({
+  setSearchTerm: (searchTerm: string) => dispatch(SetSearchTerm(searchTerm)),
+  setSearchOption: (searchOption: string) =>
+    dispatch(SetSearchOption(searchOption)),
+});
+
+const mapStateToProps = createStructuredSelector<IAppState, {}>({
+  searchTerm: selectSearchTerm,
+  searchOption: selectSearchOption,
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(SearchBar));

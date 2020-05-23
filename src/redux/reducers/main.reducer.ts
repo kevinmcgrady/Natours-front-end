@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage';
 
 import { AuthReducer, IAuthState } from './auth.reducer';
 import { IPaymentState, PaymentReducer } from './payment.reducer';
+import { ISearchState, SearchReducer } from './search.reducer';
 import { IToursState, ToursReducer } from './tours.reducer';
 import { IUsersState, UsersReducer } from './user.reducer';
 
@@ -15,6 +16,7 @@ export interface IAppState {
   auth: IAuthState;
   users: IUsersState;
   payment: IPaymentState;
+  search: ISearchState;
 }
 
 export const history = createBrowserHistory();
@@ -22,7 +24,7 @@ export const history = createBrowserHistory();
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
+  whitelist: ['auth', 'search'],
 };
 
 const MainReducer = combineReducers({
@@ -30,6 +32,7 @@ const MainReducer = combineReducers({
   auth: AuthReducer,
   users: UsersReducer,
   payment: PaymentReducer,
+  search: SearchReducer,
   router: connectRouter(history),
 });
 

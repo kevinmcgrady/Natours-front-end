@@ -1,12 +1,16 @@
 import axios from 'axios';
 import { push } from 'connected-react-router';
 import { combineEpics, Epic } from 'redux-observable';
-import { from, of } from 'rxjs';
+import { concat, from, of } from 'rxjs';
 // tslint:disable-next-line
 import { catchError, switchMap } from 'rxjs/operators';
 
 import { getEnviromentUrl } from '../../urls/enviroment';
 import urls from '../../urls/urls';
+import {
+  FailStoreUserDetails,
+  SuccessStoreUserDetails,
+} from '../actions/user.actions';
 import { selectAuthToken } from '../selectors/auth.selectors';
 import { BookingActionTypes } from '../types/booking.types';
 
@@ -29,9 +33,17 @@ const startBooking: Epic<any, any, any, any> = (action$, state$) =>
         ),
       ).pipe(
         switchMap((res) => {
-          return of(push(urls.account.bookings));
+          return concat(
+            of(SuccessStoreUserDetails('Booking completed')),
+            of(push(urls.account.bookings)),
+          );
         }),
-        catchError((error) => of(console.log(error.response))),
+        catchError((error) =>
+          concat(
+            of(FailStoreUserDetails('Booking Failed, please contact Natours')),
+            of(push(urls.account.bookings)),
+          ),
+        ),
       );
     }),
   );

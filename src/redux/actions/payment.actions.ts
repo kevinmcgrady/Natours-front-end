@@ -5,7 +5,8 @@ export const StartPayment = (
   stripe: any,
   cardHolderName: string,
   tourId: string,
+  loader: any,
 ) => ({
   type: PaymentActionTypes.StartPayment,
-  payload: { card, stripe, cardHolderName, tourId },
+  payload: { card, stripe, cardHolderName, tourId, loader },
 });

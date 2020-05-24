@@ -7,6 +7,7 @@ import { CardContainer } from '../atomic/molecules/cards/card-container/card-con
 import { Card } from '../atomic/molecules/cards/card/card.component';
 import Pagination from '../atomic/molecules/pagination/pagination.component';
 import SearchBar from '../atomic/molecules/searchBar/searchBar.component';
+import { ErrorTemplate } from '../atomic/templates/404/404.component';
 import ITour from '../models/tour.model';
 import LoadingPage from '../pages/loading.component';
 import { FetchTours } from '../redux/actions/tours.actions';
@@ -16,6 +17,7 @@ import {
   selectTours,
   selectTourTotalPages,
 } from '../redux/selectors/tours.selectors';
+import urls from '../urls/urls';
 
 interface IHomepageProps {
   fetchTours: (queryString: string) => null;
@@ -42,6 +44,17 @@ const Homepage: React.FC<IHomepageProps> = ({
 
   if (isLoading) {
     return <LoadingPage />;
+  }
+
+  if (!tours || tours.length === 0) {
+    return (
+      <ErrorTemplate
+        title='No Tours'
+        errorMessage='No tours were found'
+        linkText='All Tours'
+        linkURL={urls.homepage}
+      />
+    );
   }
 
   return (

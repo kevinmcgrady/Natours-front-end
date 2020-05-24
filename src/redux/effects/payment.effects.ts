@@ -1,12 +1,10 @@
 import axios from 'axios';
-import { push } from 'connected-react-router';
 import { combineEpics, Epic } from 'redux-observable';
 import { concat, from, of } from 'rxjs';
 // tslint:disable-next-line
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 
 import { getEnviromentUrl } from '../../urls/enviroment';
-import urls from '../../urls/urls';
 import { StartBooking } from '../actions/booking.actions';
 import { FailStoreUserDetails } from '../actions/user.actions';
 import {
@@ -48,23 +46,31 @@ const startPayment: Epic<any, any, any, any> = (action$, state$) =>
               },
             ),
           ).pipe(
-            switchMap((data) =>
-              of(StartBooking(action.payload.tourId, paymentIntent.amount)),
-            ),
+            switchMap((data: any) => {
+              // payment failed due to wrong information.
+              if (data.error) {
+                return of(FailStoreUserDetails('Payment Failed!'));
+              }
+              return of(
+                StartBooking(action.payload.tourId, paymentIntent.amount),
+              );
+            }),
             catchError((error) =>
+              // payment failed to problem with Stripe
               concat(
-                of(FailStoreUserDetails('Payment failed!')),
-                of(push(urls.account.bookings)),
+                of(FailStoreUserDetails('There was a problem, try again')),
               ),
             ),
+            tap(() => action.payload.loader.stop()),
           );
         }),
         catchError((error) =>
           concat(
+            // payment failed with Natours payment server.
             of(FailStoreUserDetails('There was a problem, please try again')),
-            of(push(urls.account.bookings)),
           ),
         ),
+        tap(() => action.payload.loader.stop()),
       );
     }),
   );

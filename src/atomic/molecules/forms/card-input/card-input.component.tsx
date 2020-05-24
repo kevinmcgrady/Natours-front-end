@@ -26,6 +26,15 @@ export const CardInput: React.FC<ITextInputProps> = ({
   return (
     <>
       <CardNumberElement
+        options={{
+          style: {
+            base: {
+              '::placeholder': {
+                color: '#bbb',
+              },
+            },
+          },
+        }}
         // @ts-ignore
         onChange={handleChange}
         // @ts-ignore

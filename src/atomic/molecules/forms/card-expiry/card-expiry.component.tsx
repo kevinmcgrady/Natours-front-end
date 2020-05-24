@@ -27,6 +27,15 @@ export const CardExpiry: React.FC<ITextInputProps> = ({
   return (
     <>
       <CardExpiryElement
+        options={{
+          style: {
+            base: {
+              '::placeholder': {
+                color: '#bbb',
+              },
+            },
+          },
+        }}
         // @ts-ignore
         onChange={handleChange}
         // @ts-ignore

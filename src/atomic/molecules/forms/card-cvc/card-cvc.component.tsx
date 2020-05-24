@@ -26,6 +26,15 @@ export const CardCvc: React.FC<ITextInputProps> = ({
   return (
     <>
       <CardCvcElement
+        options={{
+          style: {
+            base: {
+              '::placeholder': {
+                color: '#bbb',
+              },
+            },
+          },
+        }}
         // @ts-ignore
         onChange={handleChange}
         // @ts-ignore

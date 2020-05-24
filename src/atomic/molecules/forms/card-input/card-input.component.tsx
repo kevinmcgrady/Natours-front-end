@@ -1,5 +1,4 @@
 import { CardNumberElement } from '@stripe/react-stripe-js';
-import { StripeCardNumberElementChangeEvent } from '@stripe/stripe-js';
 import React, { ChangeEventHandler, EventHandler } from 'react';
 
 export interface ITextInputProps {

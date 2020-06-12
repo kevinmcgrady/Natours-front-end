@@ -1,6 +1,9 @@
 import React, { ReactNode } from 'react';
 import { MixedSchema } from 'yup';
 
+import { CardCvc } from '../card-cvc/card-cvc.component';
+import { CardExpiry } from '../card-expiry/card-expiry.component';
+import { CardInput } from '../card-input/card-input.component';
 import { Label } from '../form-label/label.component';
 import { PasswordInput } from '../password-input/password-input';
 import { SubmitButton } from '../submit-button/submit-button';
@@ -14,7 +17,7 @@ export interface IFormFieldProps {
   children: ReactNode;
   hasError?: boolean;
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string, aditionalError?: string) => void;
   onFocus?: () => void;
 }
 
@@ -59,6 +62,58 @@ export const FormField: React.FC<IFormFieldProps> = ({
           onChange: (event: any) => {
             if (onChange) {
               onChange(event.target.value);
+            }
+          },
+        });
+      }
+
+      if (child.type === CardInput) {
+        return React.cloneElement(child, {
+          ...child.props,
+          value,
+          onFocus: () => {
+            if (onFocus) {
+              onFocus();
+            }
+          },
+          onChange: (event: any) => {
+            if (onChange) {
+              console.log(event);
+              onChange(event.complete);
+            }
+          },
+        });
+      }
+
+      if (child.type === CardExpiry) {
+        return React.cloneElement(child, {
+          ...child.props,
+          value,
+          onFocus: () => {
+            if (onFocus) {
+              onFocus();
+            }
+          },
+          onChange: (event: any) => {
+            if (onChange) {
+              onChange(event.complete);
+            }
+          },
+        });
+      }
+
+      if (child.type === CardCvc) {
+        return React.cloneElement(child, {
+          ...child.props,
+          value,
+          onFocus: () => {
+            if (onFocus) {
+              onFocus();
+            }
+          },
+          onChange: (event: any) => {
+            if (onChange) {
+              onChange(event.complete);
             }
           },
         });

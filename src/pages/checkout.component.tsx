@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { Page } from '../atomic/atoms/page/page.component';
+import { InfoCard } from '../atomic/molecules/cards/info-card/info-card.component';
 import { Checkout } from '../atomic/molecules/checkout/checkout.component';
 import { ErrorTemplate } from '../atomic/templates/404/404.component';
 import ITour from '../models/tour.model';
@@ -13,6 +14,7 @@ import {
   selectIsLoading,
   selectTour,
 } from '../redux/selectors/tours.selectors';
+import { selectErrorMessage } from '../redux/selectors/users.selectors';
 import urls from '../urls/urls';
 
 interface ICheckoutPageProps {
@@ -20,6 +22,7 @@ interface ICheckoutPageProps {
   isLoading: boolean;
   tour: ITour;
   fetchTour: (tourId: string) => void;
+  errorMessage: string;
 }
 
 const CheckoutPage: React.FC<ICheckoutPageProps> = ({
@@ -27,6 +30,7 @@ const CheckoutPage: React.FC<ICheckoutPageProps> = ({
   fetchTour,
   isLoading,
   tour,
+  errorMessage,
 }) => {
   useEffect(() => {
     const id = match.params.id;
@@ -49,6 +53,7 @@ const CheckoutPage: React.FC<ICheckoutPageProps> = ({
   }
   return (
     <Page>
+      {!!errorMessage && <InfoCard type='fail' message={errorMessage} />}
       <Checkout tour={tour} />
     </Page>
   );
@@ -57,6 +62,7 @@ const CheckoutPage: React.FC<ICheckoutPageProps> = ({
 const mapStateToProps = createStructuredSelector<IAppState, {}>({
   tour: selectTour,
   isLoading: selectIsLoading,
+  errorMessage: selectErrorMessage,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({

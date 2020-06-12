@@ -1,6 +1,4 @@
 import {
-  CardCvcElement,
-  CardExpiryElement,
   CardNumberElement,
   useElements,
   useStripe,
@@ -8,7 +6,18 @@ import {
 import React from 'react';
 import { connect } from 'react-redux';
 
+import {
+  paymentField,
+  required,
+} from '../../../core/validators/form/validators';
 import { StartPayment } from '../../../redux/actions/payment.actions';
+import { CardCvc } from '../forms/card-cvc/card-cvc.component';
+import { CardExpiry } from '../forms/card-expiry/card-expiry.component';
+import { CardInput } from '../forms/card-input/card-input.component';
+import { FormField } from '../forms/form-field/form-field';
+import { Form } from '../forms/form/form';
+import { SubmitButton } from '../forms/submit-button/submit-button';
+import { TextInput } from '../forms/text-input/text-input';
 
 interface IStripeContainerProps {
   tourId: string;
@@ -17,6 +26,7 @@ interface IStripeContainerProps {
     stripe: any,
     cardHolderName: string,
     tourId: string,
+    loader: any,
   ) => void;
 }
 
@@ -27,55 +37,56 @@ const StripeContainer: React.FC<IStripeContainerProps> = ({
   const stripe = useStripe();
   const elements = useElements();
 
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-    const cardHolderName = document.getElementById('cardHolder');
-
+  const handleSubmit = async (cardHolderName: string, loader: any) => {
     if (!stripe || !elements || !cardHolderName) {
       return;
     }
+
     const card = elements.getElement(CardNumberElement);
 
-    makePayment(card, stripe, 'Mr Kevin McGrady', tourId);
+    makePayment(card, stripe, cardHolderName, tourId, loader);
   };
 
   return (
-    <form name='booking-form' onSubmit={handleSubmit}>
-      <div className='form__group'>
-        <label htmlFor='name' className='form__label'>
-          Name on card
-        </label>
-        <input
-          aria-required={true}
-          type='text'
-          placeholder='Mr John Smith'
-          className='form__input'
-          name='name'
-          id='cardHolder'
-        />
-      </div>
-      <div className='form__group'>
-        <label htmlFor='name' className='form__label'>
-          Card number
-        </label>
-        <CardNumberElement className='form__input' />
-      </div>
-      <div className='form__group'>
-        <label htmlFor='name' className='form__label'>
-          Expiry number
-        </label>
-        <CardExpiryElement className='form__input' />
-      </div>
-      <div className='form__group'>
-        <label htmlFor='name' className='form__label'>
-          Cvc
-        </label>
-        <CardCvcElement className='form__input' />
-      </div>
-      <button disabled={!stripe} className='btn btn--green'>
-        Buy now
-      </button>
-    </form>
+    <Form
+      name='booking-form'
+      state={{ cardName: '', cardNumber: '', expiryNumber: '', cvc: '' }}
+      onSubmit={(state, loader) => handleSubmit(state.cardName, loader)}
+    >
+      <FormField
+        label='Name on card'
+        name='cardName'
+        validator={required('Please enter the full name on your card')}
+      >
+        <TextInput placeholder='Mr John Smith' />
+      </FormField>
+
+      <FormField
+        label='Card number'
+        name='cardNumber'
+        validator={paymentField('Please enter the number on your card')}
+      >
+        <CardInput />
+      </FormField>
+
+      <FormField
+        label='Expiry number'
+        name='expiryNumber'
+        validator={paymentField('Please enter your expiry number')}
+      >
+        <CardExpiry />
+      </FormField>
+
+      <FormField
+        label='Cvc'
+        name='cvc'
+        validator={paymentField('Please enter your cvc number')}
+      >
+        <CardCvc />
+      </FormField>
+
+      <SubmitButton>Buy now</SubmitButton>
+    </Form>
   );
 };
 
@@ -85,7 +96,8 @@ const mapDispatchToProps = (dispatch: any) => ({
     stripe: any,
     cardHolderName: string,
     tourId: string,
-  ) => dispatch(StartPayment(card, stripe, cardHolderName, tourId)),
+    loader: any,
+  ) => dispatch(StartPayment(card, stripe, cardHolderName, tourId, loader)),
 });
 
 export default connect(null, mapDispatchToProps)(StripeContainer);

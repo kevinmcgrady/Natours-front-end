@@ -89,7 +89,7 @@ export class Form<T extends object> extends Component<
   // Method to set up state.
   private setupState() {
     const { state } = this.props;
-    console.log(state);
+
     const form: FormState = mapValues(state, (initValue: any) => ({
       value: initValue,
       touched: false,
@@ -161,17 +161,6 @@ export class Form<T extends object> extends Component<
     return false;
   }
 
-  private setFormFieldError(field: string, errorMessage: string) {
-    const form = { ...this.state.form };
-
-    form[field] = {
-      ...this.state.form[field],
-      error: errorMessage,
-    };
-
-    this.setState({ form });
-  }
-
   // Metho to set form field errors.
   private setFormFieldErrors(errors: FieldErrors) {
     const form = { ...this.state.form };
@@ -221,17 +210,9 @@ export class Form<T extends object> extends Component<
 
   // On Change Handler.
   private onChangeHandler = (field: string, shouldValidate = true) => {
-    return (value: any, additionalError?: string) => {
+    return (value: any) => {
       if (this.state.form[field] === null) {
         return;
-      }
-
-      console.log(this.state);
-
-      if (additionalError) {
-        this.setFormFieldError(field, additionalError);
-        shouldValidate = false;
-        this.setState({ isValid: false });
       }
 
       this.setFormFieldValue(field, value);

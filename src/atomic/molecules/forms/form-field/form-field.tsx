@@ -78,10 +78,8 @@ export const FormField: React.FC<IFormFieldProps> = ({
           },
           onChange: (event: any) => {
             if (onChange) {
-              onChange(
-                `${event.empty ? '' : 'has-value'}`,
-                event.error?.message,
-              );
+              console.log(event);
+              onChange(event.complete);
             }
           },
         });
@@ -98,10 +96,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
           },
           onChange: (event: any) => {
             if (onChange) {
-              onChange(
-                `${event.empty ? '' : 'has-value'}`,
-                event.error?.message,
-              );
+              onChange(event.complete);
             }
           },
         });
@@ -118,10 +113,7 @@ export const FormField: React.FC<IFormFieldProps> = ({
           },
           onChange: (event: any) => {
             if (onChange) {
-              onChange(
-                `${event.empty ? '' : 'has-value'}`,
-                event.error?.message,
-              );
+              onChange(event.complete);
             }
           },
         });

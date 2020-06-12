@@ -6,7 +6,10 @@ import {
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { required } from '../../../core/validators/form/validators';
+import {
+  paymentField,
+  required,
+} from '../../../core/validators/form/validators';
 import { StartPayment } from '../../../redux/actions/payment.actions';
 import { CardCvc } from '../forms/card-cvc/card-cvc.component';
 import { CardExpiry } from '../forms/card-expiry/card-expiry.component';
@@ -61,7 +64,7 @@ const StripeContainer: React.FC<IStripeContainerProps> = ({
       <FormField
         label='Card number'
         name='cardNumber'
-        validator={required('Please enter your card number')}
+        validator={paymentField('Please enter the number on your card')}
       >
         <CardInput />
       </FormField>
@@ -69,7 +72,7 @@ const StripeContainer: React.FC<IStripeContainerProps> = ({
       <FormField
         label='Expiry number'
         name='expiryNumber'
-        validator={required('Please enter your expiry number')}
+        validator={paymentField('Please enter your expiry number')}
       >
         <CardExpiry />
       </FormField>
@@ -77,7 +80,7 @@ const StripeContainer: React.FC<IStripeContainerProps> = ({
       <FormField
         label='Cvc'
         name='cvc'
-        validator={required('Please enter your cvc number')}
+        validator={paymentField('Please enter your cvc number')}
       >
         <CardCvc />
       </FormField>

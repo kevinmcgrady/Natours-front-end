@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { ConnectedRouter } from 'connected-react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 // tslint:disable-next-line
 import { PersistGate } from 'redux-persist/integration/react';
@@ -14,6 +15,11 @@ import { persistor, store } from './redux/store';
 import * as serviceWorker from './serviceWorker';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY as string);
+
+history.listen((location) => {
+  ReactGA.set({ page: location.pathname });
+  ReactGA.pageview(location.pathname);
+});
 
 ReactDOM.render(
   <React.StrictMode>

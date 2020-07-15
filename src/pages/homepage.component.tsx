@@ -66,6 +66,7 @@ const Homepage: React.FC<IHomepageProps> = ({
         ))}
       </CardContainer>
       <Pagination {...paginationProps} />
+      <p>Get that pineapple off the pizza ;)</p>
     </Page>
   );
 };

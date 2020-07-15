@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import React, { Suspense, useEffect } from 'react';
+import ReactGA from 'react-ga';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
@@ -34,6 +35,8 @@ interface IAppProps {
 const App: React.FC<IAppProps> = ({ logout }) => {
   // check if cookie is still valid
   useEffect(() => {
+    initializeReactGA();
+
     const jwtCookie = Cookies.get('jwt');
     if (!jwtCookie) {
       logout();
@@ -78,5 +81,11 @@ const App: React.FC<IAppProps> = ({ logout }) => {
 const mapDispatchToProps = (dispatch: any) => ({
   logout: () => dispatch(Logout()),
 });
+
+// google an.
+const initializeReactGA = () => {
+  ReactGA.initialize('UA-169183381-1');
+  ReactGA.pageview('/');
+};
 
 export default connect(null, mapDispatchToProps)(App);

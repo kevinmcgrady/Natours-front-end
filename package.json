@@ -45,7 +45,7 @@
     "react-helmet": "^6.0.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-stripe-checkout": "^2.6.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
@@ -90,7 +90,7 @@
   },
   "devDependencies": {
     "@storybook/preset-create-react-app": "^3.0.0",
-    "@storybook/react": "^5.3.18",
+    "@storybook/react": "^7.0.9",
     "react-test-renderer": "^15.6.1",
     "tslint": "^5.16.0",
     "tslint-loader": "^3.5.4",
